@@ -1,0 +1,109 @@
+/* ============================================================
+   TUNATRUTH SUPPORT — DESIGN TOKENS
+   Brand core colours are carried over from the IPNLF design
+   system (deep ocean teal-navy + warm orange/gold accent) so the
+   page reads as genuinely IPNLF, but this page uses its own
+   cinematic near-black surface + a single warm "support" accent
+   for the donation interface, so it feels like a campaign page
+   rather than a re-skin of the informational micro-sites.
+   ============================================================ */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap");
+
+:root {
+  /* ---- IPNLF brand core (unchanged from other IPNLF sites) ---- */
+  --ipnlf-deep:    #0C465B;
+  --ipnlf-teal:    #27AD9C;
+  --ipnlf-ocean:   #5CA1B9;
+  --ipnlf-orange:  #E88C33;
+  --ipnlf-gold:    #F6AE2D;
+  --ipnlf-teal-deep:  #146E64;
+
+  /* ---- Cinematic surface (TunaTruth-specific, campaign feel) ---- */
+  --cinema-black:   #0A1416;
+  --cinema-panel:   #102226;
+  --cinema-line:    rgba(255,255,255,0.12);
+
+  /* ---- Neutrals ---- */
+  --ipnlf-ink:     #0E0705;
+  --ipnlf-slate:   #4A5A60;
+  --ipnlf-mist:    #C2D0D0;
+  --ipnlf-foam:    #EEF4F4;
+  --ipnlf-white:   #FFFFFF;
+
+  /* ---- Semantic text ---- */
+  --text-strong:       var(--ipnlf-ink);
+  --text-body:         #1E2A2E;
+  --text-muted:        var(--ipnlf-slate);
+  --text-on-dark:      var(--ipnlf-white);
+  --text-on-dark-soft: #B9CBCE;
+  --text-link:         var(--ipnlf-teal-deep);
+
+  /* ---- Semantic surfaces ---- */
+  --surface-page:  var(--ipnlf-white);
+  --surface-soft:  var(--ipnlf-foam);
+  --surface-dark:  var(--cinema-black);
+  --surface-panel: var(--cinema-panel);
+
+  /* ---- Borders ---- */
+  --border-subtle:  var(--ipnlf-mist);
+  --border-on-dark: var(--cinema-line);
+
+  /* ---- Brand actions ----
+     The donate CTA deliberately uses the warm gold/orange pair, not the
+     teal used for informational links elsewhere, so it reads as the one
+     actionable thing on the screen rather than blending with nav/body links. */
+  --brand-primary:   var(--ipnlf-deep);
+  --brand-secondary: var(--ipnlf-teal);
+  --cta-bg:          var(--ipnlf-gold);
+  --cta-bg-hover:    #ffbf49;
+  --cta-text:        #241300;
+
+  /* ---- Type ---- */
+  --font-display: "Bebas Neue", "Anton", "Oswald", sans-serif;
+  --font-text:    "Open Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --fs-display-lg: 3.25rem;
+  --fs-display-md: 2.5rem;
+  --fs-h1: 2rem;
+  --fs-h2: 1.5rem;
+  --fs-h3: 1.2rem;
+  --fs-body-lg: 1.125rem;
+  --fs-body: 1rem;
+  --fs-body-sm: 0.875rem;
+  --fs-caption: 0.75rem;
+  --fs-overline: 0.8125rem;
+
+  --lh-display: 0.96;
+  --lh-heading: 1.15;
+  --lh-snug: 1.35;
+  --lh-body: 1.6;
+
+  --ls-display: 0.01em;
+  --ls-overline: 0.14em;
+
+  /* ---- Spacing (8px base) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* ---- Radii ---- */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* ---- Shadows ---- */
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.12);
+  --shadow-md: 0 10px 30px rgba(0,0,0,0.22);
+  --shadow-cta: 0 8px 24px rgba(246,174,45,0.35);
+
+  /* ---- Layout ---- */
+  --container-max: 1120px;
+  --container-narrow: 640px;
+  --container-donate: 420px;
+}

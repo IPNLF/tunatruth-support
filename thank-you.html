@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thank you — TunaTruth | IPNLF</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+<div class="tt-confirm">
+  <div class="tt-confirm__panel">
+    <svg class="tt-confirm__icon" width="48" height="48" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="currentColor" d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Zm-1 14.59-4.3-4.3 1.42-1.41L11 12.76l5.88-5.88 1.41 1.41L11 15.59Z"/>
+    </svg>
+    <h1 class="tt-confirm__title">Thank you</h1>
+    <p class="tt-confirm__body">
+      Your support for TunaTruth has been received. It genuinely helps the
+      documentary reach further.
+    </p>
+    <p class="tt-confirm__body">
+      [PLACEHOLDER — confirm preferred thank-you tone/copy with IPNLF; e.g.
+      a line on what happens next, or a specific acknowledgement.]
+    </p>
+    <div class="tt-confirm__actions">
+      <button type="button" class="tt-btn-secondary" data-role="copy-link" style="border-color:#fff;color:#fff;">Copy link to share</button>
+      <a class="tt-btn-secondary" style="border-color:#fff;color:#fff;" href="index.html">Back to TunaTruth</a>
+    </div>
+    <p class="tt-share__copied" data-role="copy-confirm" hidden style="color:#8fd8c9;">Link copied.</p>
+  </div>
+</div>
+
+<script src="assets/js/config.js"></script>
+<script>
+  // Minimal inline copy-link behaviour (kept separate from components.js
+  // since this page doesn't load the full component set).
+  const copyBtn = document.querySelector('[data-role="copy-link"]');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(SITE_CONFIG.canonicalUrl);
+      } catch (e) {
+        try { window.prompt('Copy this link:', SITE_CONFIG.canonicalUrl); } catch (e2) { /* no-op */ }
+        return;
+      }
+      const confirmEl = document.querySelector('[data-role="copy-confirm"]');
+      if (confirmEl) {
+        confirmEl.hidden = false;
+        setTimeout(() => { confirmEl.hidden = true; }, 2500);
+      }
+    });
+  }
+</script>
+</body>
+</html>
