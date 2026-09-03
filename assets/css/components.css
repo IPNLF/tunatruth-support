@@ -27,19 +27,32 @@ a { color: var(--text-link); }
   padding: 0 var(--space-5);
 }
 
-/* ---- wordmarks ---- */
-.tt-word { font-family: var(--font-display); letter-spacing: var(--ls-display); }
-.tt-word--ipnlf { color: var(--ipnlf-deep); }
-.tt-word--tunatruth { color: var(--ipnlf-white); }
-.tt-word--tunatruth em { font-style: normal; color: var(--ipnlf-gold); }
-.tt-word--xs { font-size: 1rem; }
-.tt-word--sm { font-size: 1.35rem; }
-.tt-word--lg { font-size: clamp(2.4rem, 10vw, var(--fs-display-lg)); line-height: var(--lh-display); }
+/* ---- real logo images (replace earlier fabricated CSS wordmarks) ---- */
+.tt-logo { display: block; width: auto; }
+.tt-logo--ipnlf.tt-logo--xs { height: 18px; }
+.tt-logo--ipnlf.tt-logo--sm { height: 26px; }
+.tt-logo--tunatruth.tt-logo--xs { height: 22px; }
+.tt-logo--tunatruth.tt-logo--sm { height: 34px; }
+.tt-logo--tunatruth.tt-logo--lg { width: clamp(220px, 46vw, 420px); height: auto; }
 
-/* ---- header ---- */
+/* IPNLF's real logo is dark navy on transparent, made for light
+   backgrounds — this chip gives it a light patch to sit on wherever it
+   needs to appear over a dark surface (footer, confirmation page). */
+.tt-logo-chip {
+  display: inline-flex;
+  align-items: center;
+  background: var(--ipnlf-white);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+/* ---- header ----
+   Light surface (not the cinematic dark used elsewhere) so IPNLF's real
+   logo — dark navy on transparent, designed for light backgrounds —
+   reads properly rather than disappearing into a dark bar. */
 .tt-header {
-  background: var(--surface-dark);
-  border-bottom: 1px solid var(--border-on-dark);
+  background: var(--surface-page);
+  border-bottom: 1px solid var(--border-subtle);
 }
 .tt-header__inner {
   display: flex;
@@ -48,16 +61,16 @@ a { color: var(--text-link); }
   padding-top: var(--space-3);
   padding-bottom: var(--space-3);
 }
-.tt-lockup { display: flex; align-items: baseline; gap: var(--space-2); flex-wrap: wrap; }
+.tt-lockup { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
 .tt-lockup__joiner {
   font-family: var(--font-text);
   font-size: var(--fs-caption);
-  color: var(--text-on-dark-soft);
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: var(--ls-overline);
 }
 .tt-header__link {
-  color: var(--text-on-dark-soft);
+  color: var(--text-muted);
   font-size: var(--fs-body-sm);
   text-decoration: none;
   border-bottom: 1px solid transparent;
@@ -66,9 +79,15 @@ a { color: var(--text-link); }
 
 /* ---- hero + donate (above the fold) ---- */
 .tt-hero {
-  background: var(--surface-dark);
-  background-image: radial-gradient(circle at 15% 15%, rgba(39,173,156,0.25), transparent 55%),
-                     radial-gradient(circle at 85% 85%, rgba(232,140,51,0.18), transparent 50%);
+  background-color: var(--surface-dark);
+  /* Dark scrim (heavier over the identity/logo side) over the real
+     documentary still, so the logo and support line stay legible
+     regardless of how bright the sky is behind them. */
+  background-image:
+    linear-gradient(120deg, rgba(6,14,16,0.90) 0%, rgba(6,14,16,0.78) 35%, rgba(6,14,16,0.45) 65%, rgba(6,14,16,0.25) 100%),
+    url("../img/hero-photo.jpg");
+  background-size: cover;
+  background-position: center 30%;
   padding: var(--space-6) 0 var(--space-7);
 }
 .tt-hero__grid {
@@ -80,14 +99,17 @@ a { color: var(--text-link); }
    ideally the trust line under it) clears the viewport without
    scrolling, even once browser chrome eats into real usable height. */
 @media (max-width: 480px) {
-  .tt-hero { padding: var(--space-4) 0 var(--space-5); }
-  .tt-hero__grid { gap: var(--space-4); }
-  .tt-hero__eyebrow { margin-bottom: var(--space-1); }
-  .tt-hero__title { margin-bottom: var(--space-2); }
-  .tt-word--lg { font-size: clamp(2.1rem, 12vw, 2.6rem); }
+  .tt-hero { padding: var(--space-3) 0 var(--space-4); }
+  .tt-hero__grid { gap: var(--space-3); }
+  .tt-hero__eyebrow { margin-bottom: var(--space-1); font-size: 0.7rem; }
+  .tt-hero__title { margin-bottom: var(--space-1); }
+  .tt-logo--tunatruth.tt-logo--lg { width: clamp(170px, 58vw, 260px); }
+  .tt-hero__support-line { font-size: var(--fs-body); }
   .tt-donate-panel { padding: var(--space-4); }
+  .tt-donate-panel__eyebrow { margin-bottom: var(--space-2); }
   .tt-amounts { margin-bottom: var(--space-1); }
-  .tt-donate-panel__note { margin-bottom: var(--space-3); }
+  .tt-donate-panel__note { margin-bottom: var(--space-2); }
+  .tt-donate-panel__trust { margin-top: var(--space-2); }
 }
 @media (min-width: 860px) {
   .tt-hero__grid { grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: var(--space-8); }

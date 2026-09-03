@@ -97,21 +97,31 @@ setup and more to keep in sync, but is easy to switch to.
 - Confirmation that a single "customer chooses amount" Payment Link is
   acceptable, vs. fixed preset-amount links (see above).
 
-**Content — currently placeholder text, marked `[PLACEHOLDER — ...]`
+**Resolved from real supplied assets (no longer placeholder):**
+- IPNLF's and TunaTruth's actual logos (`assets/img/ipnlf-logo.png`,
+  `assets/img/tunatruth-logo.png`) — real files, not recreated/guessed.
+- Hero background photo (`assets/img/hero-photo.jpg`) and the OG
+  social-share image (`assets/img/og-image.jpg`, cropped from the real
+  poster) are genuine TunaTruth production stills, not stock photography.
+- The "Behind the film" section's production credit (Sunline Films,
+  IPNLF as executive producer, presenter Serena Appleby, director Sara
+  Pipernos, supporting orgs) is copied directly from the official poster
+  asset — factual, not invented.
+
+**Content — still placeholder text, marked `[PLACEHOLDER — ...]`
 directly in the page:**
 - One-sentence description of TunaTruth (hero support line)
 - 50–100 word synopsis ("What TunaTruth is")
 - What additional funding specifically enables ("What your support helps
   achieve") — no invented figures
 - Why-now / Bangkok screening context
-- IPNLF-involvement paragraph and TunaTruth site/socials link
+- A sentence or two on why IPNLF backs this specific film (beyond the
+  factual production credit already in place)
+- TunaTruth site/socials link
 - Confirmation-page copy tone
 - Privacy policy, refund/contact information, receiving-entity legal name
-  (footer)
-- Real logos for IPNLF and TunaTruth (currently text wordmarks)
-- A real documentary still/hero image (currently a plain gradient
-  background — deliberately not a stock photo standing in for real
-  footage)
+  (footer) — note this may differ from the production companies credited
+  above; it's whichever entity actually receives the Stripe funds
 - Final suggested donation amounts (currently $25/$50/$100, explicitly
   marked "provisional" on the page)
 - Preferred settlement/display currency if not USD

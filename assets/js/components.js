@@ -14,11 +14,11 @@ const TT = (() => {
   // ---- small building blocks ----------------------------------
 
   function wordmarkIpnlf(size) {
-    return `<span class="tt-word tt-word--ipnlf tt-word--${size}" aria-label="IPNLF">IPNLF</span>`;
+    return `<img class="tt-logo tt-logo--ipnlf tt-logo--${size}" src="assets/img/ipnlf-logo.png" alt="IPNLF — for one-by-one fishers">`;
   }
 
   function wordmarkTunaTruth(size) {
-    return `<span class="tt-word tt-word--tunatruth tt-word--${size}">Tuna<em>Truth</em></span>`;
+    return `<img class="tt-logo tt-logo--tunatruth tt-logo--${size}" src="assets/img/tunatruth-logo.png" alt="The Tuna Truth, with Serena Appleby">`;
   }
 
   function brandLockup() {
@@ -77,7 +77,7 @@ const TT = (() => {
           <p class="tt-hero__eyebrow">A documentary supported by IPNLF</p>
           <h1 class="tt-hero__title">${wordmarkTunaTruth("lg")}</h1>
           <p class="tt-hero__support-line">
-            [PLACEHOLDER — one-sentence description of what TunaTruth is and what this support is for]
+            [PLACEHOLDER — one short sentence on what the film is and why support matters]
           </p>
         </div>
         <div class="tt-hero__panel">
@@ -125,8 +125,9 @@ const TT = (() => {
   function credibility() {
     return `<section class="tt-section" id="credibility">
       <div class="tt-container tt-credibility">
-        <h2 class="tt-card__title">IPNLF's involvement</h2>
-        <p class="tt-card__body">[PLACEHOLDER — a short, factual paragraph on why IPNLF backs TunaTruth and how the two organisations relate. Link out to existing TunaTruth/IPNLF pages where available rather than duplicating their content.]</p>
+        <h2 class="tt-card__title">Behind the film</h2>
+        <p class="tt-card__body">The Tuna Truth is a Sunline Films production, executive produced by IPNLF (International Pole &amp; Line Foundation), presented by Serena Appleby and produced and directed by Sara Pipernos — made with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
+        <p class="tt-card__body">[PLACEHOLDER — a further sentence or two on why IPNLF specifically backs this film and what it means for IPNLF's wider one-by-one fishing mission, if useful beyond the credit above.]</p>
         <div class="tt-credibility__links">
           <a href="https://ipnlf.org" target="_blank" rel="noopener">About IPNLF →</a>
           <span class="tt-credibility__placeholder">[TunaTruth site/socials link — placeholder]</span>
@@ -140,7 +141,9 @@ const TT = (() => {
     return `<footer class="tt-footer">
       <div class="tt-container tt-footer__inner">
         <div class="tt-footer__brands">
-          ${wordmarkIpnlf("xs")}<span class="tt-footer__x">×</span>${wordmarkTunaTruth("xs")}
+          <span class="tt-logo-chip">${wordmarkIpnlf("xs")}</span>
+          <span class="tt-footer__x">×</span>
+          ${wordmarkTunaTruth("xs")}
         </div>
         <nav class="tt-footer__links" aria-label="Legal and contact">
           <a href="#">[Privacy policy — placeholder]</a>
