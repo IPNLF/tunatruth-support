@@ -184,7 +184,7 @@ replaced before this page is genuinely launch-ready. Locations reference
 | Suggested donation amounts (£25/£50/£100) | `config.js` → `presetAmounts` | Explicitly labelled "provisional" on-page; real amounts TBC |
 | Settlement currency | `config.js` → `currencyCode` | Confirmed GBP from the real test Payment Link (see "Stripe readiness") |
 | ~~Privacy policy link~~ | `footer()` | **Done** — links to IPNLF's real policy at https://ipnlf.org/privacy-policy/ (verified live 2026-09-07) |
-| Contact & refunds link | `footer()` | Still `#` — no real contact address/page yet. Not a legal requirement for a donation page (unlike privacy), but recommended for donor trust — see chat discussion 2026-09-07 |
+| ~~Contact & refunds link~~ | `footer()` | **Removed by request 2026-09-08** — decided not to add a dedicated contact/refunds page; donors can reach out through existing channels if there's a problem |
 | Receiving legal entity name | `footer()` copyright line | Deliberately omitted — do not add a name without IPNLF sign-off (see Stripe section: may not be the same entity as the production credit) |
 | ~~TunaTruth site/socials link~~ | `credibility()` | **Done** — "Find out more →" now links to https://www.tunatruth.com/ |
 
