@@ -279,44 +279,31 @@ a { color: var(--text-link); }
 .tt-share__copied { margin: var(--space-3) 0 0; color: var(--ipnlf-teal-deep); font-size: var(--fs-body-sm); }
 
 /* ---- credibility ----
-   Distinct treatments per content type, rather than four identical
-   paragraphs, so this reads as a designed section rather than a
-   dump of copy: a lead sentence, a highlighted award callout, a
-   quieter film-credits strip, then plain body text. */
+   Deliberately one quiet register throughout: one body-copy style,
+   one understated emphasis style for the award line, one link style.
+   No cards, no dividers — calmer and more editorial than a section
+   with a different visual treatment per paragraph. */
 .tt-credibility { max-width: var(--container-narrow); }
-.tt-credibility__lead {
+.tt-credibility p {
   margin: 0 0 var(--space-4);
-  color: var(--text-strong);
-  font-size: var(--fs-body-lg);
-}
-.tt-credibility__award {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin: 0 0 var(--space-4);
-  padding: var(--space-3) var(--space-4);
-  background: var(--surface-soft);
-  border-radius: var(--radius-md);
-}
-.tt-credibility__award-logo {
-  height: 40px;
-  width: auto;
-  border-radius: 6px;
-  flex-shrink: 0;
-}
-.tt-credibility__award p { margin: 0; color: var(--text-body); font-size: var(--fs-body-sm); }
-.tt-credibility__credit {
-  margin: 0 0 var(--space-4);
-  padding: var(--space-3) 0;
-  border-top: 1px solid var(--border-subtle);
-  border-bottom: 1px solid var(--border-subtle);
   color: var(--text-muted);
-  font-size: var(--fs-body-sm);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
 }
-.tt-credibility__links { display: flex; gap: var(--space-4); margin-top: var(--space-3); flex-wrap: wrap; font-size: var(--fs-body-sm); }
-@media (max-width: 480px) {
-  .tt-credibility__award { flex-direction: column; align-items: flex-start; }
+.tt-credibility__award-line {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
 }
+.tt-credibility__award-line strong { color: var(--text-strong); }
+.tt-credibility__award-mark {
+  height: 18px;
+  width: auto;
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.tt-credibility__links { display: flex; gap: var(--space-4); margin-top: var(--space-1); flex-wrap: wrap; font-size: var(--fs-body-sm); }
 
 /* ---- footer ---- */
 .tt-footer { background: var(--surface-dark); padding: var(--space-6) 0; }

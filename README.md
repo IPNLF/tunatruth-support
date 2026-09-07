@@ -178,7 +178,8 @@ replaced before this page is genuinely launch-ready. Locations reference
 |---|---|---|
 | Hero support line ("Support the next stage of...") | `heroDonate()` | Holding copy — needs approval |
 | "Why your support matters" body | `whySupportMatters()` | Holding copy — provisional until production confirms actual use of funds (merges the old "what your support helps achieve" + "why now" into one short block) |
-| "IPNLF supports The Tuna Truth..." sentence | `credibility()` | Holding copy — needs IPNLF approval specifically (the only remaining holding copy in "Behind the film" — the synopsis, presenter bio and award mention are all now confirmed, see below) |
+| "Filmed in the Azores..." synopsis | `credibility()` | Holding copy — needs production/IPNLF fact-check |
+| "IPNLF supports the film..." sentence | `credibility()` | Holding copy — needs IPNLF approval specifically. (The award-finalist line and the production credit in this same section are independently verified/confirmed, not holding copy — see below.) |
 | Thank-you page body copy | `thank-you.html` | Holding copy — needs approval |
 | Suggested donation amounts (£25/£50/£100) | `config.js` → `presetAmounts` | Explicitly labelled "provisional" on-page; real amounts TBC |
 | Settlement currency | `config.js` → `currencyCode` | Confirmed GBP from the real test Payment Link (see "Stripe readiness") |
@@ -196,15 +197,26 @@ replaced before this page is genuinely launch-ready. Locations reference
 - The "Behind the film" production credit (Sunline Films, IPNLF as
   executive producer, presenter Serena Appleby, director Sara Pipernos,
   supporting orgs) — copied directly from the official poster asset.
-- The film's synopsis ("Filmed in the Azores..."), Serena Appleby's bio
-  (chef, presenter of BBC Three's *Hungry For It*), and the Jackson
-  Wild Award finalist nomination (Onscreen Personality category,
-  alongside Sir David Attenborough and Benedict Cumberbatch) — supplied
-  directly 2026-09-07, now in `credibility()`.
+- The film's synopsis ("Filmed in the Azores...") is HOLDING COPY again
+  (see checklist below) — a 2026-09-08 design pass simplified "Behind
+  the film" and this reverted to needing production/IPNLF approval like
+  the rest of the section's narrative copy.
+- The Jackson Wild Award finalist line **is independently verified**,
+  not just supplied copy: checked 2026-09-08 directly against Jackson
+  Wild's own 2026 Media Awards page (jacksonwild.org/2026-media-awards)
+  and the Human Rights at Sea article on Sunline Films. Onscreen
+  Personality finalists are confirmed as Sir David Attenborough,
+  Benedict Cumberbatch, Will Smith and Serena Appleby. Deliberately
+  worded as a single attributable claim ("finalist") — dropped the
+  earlier "nature-film world's equivalent of the Oscars" comparison
+  and the doubled "shortlisted...finalist" phrasing, neither of which
+  had a citable source.
 - The real Jackson Wild logo (`assets/img/jackson-wild-logo.png` — a
-  supplied screenshot, not a clean transparent asset; sits in a bordered
-  callout box in "Behind the film" and as a small text badge near the
-  donate panel) and the real tunatruth.com link.
+  supplied screenshot, not a clean transparent asset) now appears
+  understated: a small 18px mark inline with the award sentence in
+  "Behind the film" (no bordered callout box any more), plus the
+  separate small text badge near the donate panel. The real
+  tunatruth.com link is in place as "Find out more →".
 
 ## Hard external dependencies
 

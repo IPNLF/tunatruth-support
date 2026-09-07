@@ -134,20 +134,26 @@ const TT = (() => {
       <div class="tt-container tt-credibility">
         <h2 class="tt-card__title">Behind the film</h2>
 
-        <!-- Confirmed copy, supplied 2026-09-07 -->
-        <p class="tt-credibility__lead">Filmed in the Azores, Portugal, ${cfg.filmName} shines a light on troubling aspects of the seafood industry and invites viewers on a journey towards more sustainable, responsible choices.</p>
+        <!-- HOLDING COPY — requires production/IPNLF approval before launch -->
+        <p>Filmed in the Azores, Portugal, ${cfg.filmName} shines a light on troubling aspects of the seafood industry and invites viewers on a journey towards more sustainable, responsible choices.</p>
 
-        <!-- Real award laurel, screenshot of the official Jackson Wild logo supplied 2026-09-07 -->
-        <div class="tt-credibility__award">
-          <img class="tt-credibility__award-logo" src="assets/img/jackson-wild-logo.png" alt="Jackson Wild">
-          <p>Shortlisted as a finalist for a Jackson Wild Award — widely regarded as the nature-film world's equivalent of the Oscars® — nominated in the Onscreen Personality category alongside Sir David Attenborough and Benedict Cumberbatch.</p>
-        </div>
+        <!-- Confirmed 2026-09-08 against Jackson Wild's own 2026 Media Awards
+             page (jacksonwild.org/2026-media-awards) and the Human Rights at
+             Sea article on Sunline Films — Onscreen Personality finalists are
+             Attenborough, Cumberbatch, Will Smith and Serena Appleby. Kept to
+             one plain, attributable claim ("finalist") rather than repeating
+             the hero's own award badge or adding an unsourced "Oscars of
+             nature film" comparison. -->
+        <p class="tt-credibility__award-line">
+          <img class="tt-credibility__award-mark" src="assets/img/jackson-wild-logo.png" alt="Jackson Wild" loading="lazy">
+          <span><strong>Jackson Wild Award finalist</strong> — Serena Appleby was named a finalist in the Onscreen Personality category alongside Sir David Attenborough, Benedict Cumberbatch and Will Smith.</span>
+        </p>
 
-        <!-- Confirmed factual credit, sourced directly from the official poster asset, presenter bio supplied 2026-09-07 -->
-        <p class="tt-credibility__credit">${cfg.filmName} is a Sunline Films production, commissioned and executive produced by IPNLF (International Pole &amp; Line Foundation), presented by chef Serena Appleby (BBC Three's <em>Hungry For It</em>) and produced and directed by Sara Pipernos — made with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
+        <!-- Confirmed factual credit, sourced directly from the official poster asset -->
+        <p>${cfg.filmName} is a Sunline Films production, commissioned and executive produced by IPNLF (International Pole &amp; Line Foundation), presented by chef Serena Appleby and produced and directed by Sara Pipernos, with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
 
         <!-- HOLDING COPY — requires IPNLF approval before launch -->
-        <p class="tt-card__body">IPNLF supports ${cfg.filmName} as part of its work to promote thriving coastal communities and environmentally and socially responsible tuna fisheries.</p>
+        <p>IPNLF supports the film as part of its work to promote thriving coastal communities and environmentally and socially responsible tuna fisheries.</p>
 
         <div class="tt-credibility__links">
           <a href="https://www.tunatruth.com/" target="_blank" rel="noopener">Find out more →</a>
