@@ -90,24 +90,16 @@ const TT = (() => {
 
   // ---- supporting sections (below the fold) --------------------
 
-  function whatAndWhy() {
-    return `<section class="tt-section" id="about">
-      <div class="tt-container tt-section__grid">
-        <div class="tt-card">
-          <h2 class="tt-card__title">What ${cfg.filmName} is</h2>
-          <!-- HOLDING COPY — requires IPNLF/production fact-check before launch -->
-          <p class="tt-card__body">${cfg.filmName} explores the people, choices and challenges behind the global tuna industry, asking what a more responsible future for tuna could look like.</p>
-        </div>
-        <div class="tt-card">
-          <h2 class="tt-card__title">What your support helps achieve</h2>
-          <!-- HOLDING COPY — provisional until production confirms specific use of funds -->
-          <p class="tt-card__body">Making the film is only part of the journey. Further support can help ${cfg.filmName} reach wider audiences through screenings, distribution and engagement, giving more people the opportunity to see the film and take its message further.</p>
-        </div>
-        <div class="tt-card">
-          <h2 class="tt-card__title">Why now</h2>
-          <!-- HOLDING COPY — deliberately not tied to one event, so it doesn't need rewriting once Bangkok has passed -->
-          <p class="tt-card__body">${cfg.filmName} is entering the next stage of its journey, with new screenings and audiences creating an opportunity to build its reach and momentum.</p>
-        </div>
+  // Deliberately one short block, not three — the donor only needs
+  // reassurance that support has a clear purpose here; deeper subject
+  // matter lives lower down in credibility(), not competing with this.
+  function whySupportMatters() {
+    return `<section class="tt-section tt-why" id="why">
+      <div class="tt-container tt-why__inner">
+        <h2 class="tt-why__title">Why your support matters</h2>
+        <!-- HOLDING COPY — provisional until production confirms specific use of funds -->
+        <p class="tt-why__body">The film is entering the next stage of its journey. Further support will help it reach wider audiences through screenings, distribution and engagement.</p>
+        <a class="tt-why__link" href="#credibility">About the film →</a>
       </div>
     </section>`;
   }
@@ -130,6 +122,8 @@ const TT = (() => {
     return `<section class="tt-section" id="credibility">
       <div class="tt-container tt-credibility">
         <h2 class="tt-card__title">Behind the film</h2>
+        <!-- HOLDING COPY — requires IPNLF/production fact-check before launch -->
+        <p class="tt-card__body">${cfg.filmName} explores the people, choices and challenges behind the global tuna industry, asking what a more responsible future for tuna could look like.</p>
         <!-- Confirmed factual credit, sourced directly from the official poster asset -->
         <p class="tt-card__body">${cfg.filmName} is a Sunline Films production, executive produced by IPNLF (International Pole &amp; Line Foundation), presented by Serena Appleby and produced and directed by Sara Pipernos — made with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
         <!-- HOLDING COPY — requires IPNLF approval before launch -->
@@ -200,7 +194,7 @@ const TT = (() => {
   }
 
   return {
-    header, heroDonate, whatAndWhy, shareBlock, credibility, footer,
+    header, heroDonate, whySupportMatters, shareBlock, credibility, footer,
     initInteractions,
   };
 })();

@@ -182,13 +182,12 @@ replaced before this page is genuinely launch-ready. Locations reference
 | Item | Location | Status |
 |---|---|---|
 | Hero support line ("Support the next stage of...") | `heroDonate()` | Holding copy — needs approval |
-| "What The Tuna Truth is" synopsis | `whatAndWhy()` | Holding copy — **needs fact-check**, written without seeing the film |
-| "What your support helps achieve" | `whatAndWhy()` | Holding copy — provisional until production confirms actual use of funds |
-| "Why now" | `whatAndWhy()` | Holding copy — deliberately not tied to Bangkok so it doesn't need rewriting once that date passes |
+| "Why your support matters" body | `whySupportMatters()` | Holding copy — provisional until production confirms actual use of funds (merges the old "what your support helps achieve" + "why now" into one short block) |
+| "The Tuna Truth explores..." synopsis | `credibility()` (moved from the old 3-column section — deeper subject-matter detail now lives with "Behind the film", not immediately under the hero) | Holding copy — **needs fact-check**, written without seeing the film |
 | "IPNLF supports The Tuna Truth..." sentence | `credibility()` | Holding copy — needs IPNLF approval specifically |
 | Thank-you page body copy | `thank-you.html` | Holding copy — needs approval |
-| Suggested donation amounts ($25/$50/$100) | `config.js` → `presetAmounts` | Explicitly labelled "provisional" on-page; real amounts TBC |
-| Settlement currency (USD assumed) | `config.js` → `currencyCode` | Unconfirmed |
+| Suggested donation amounts (£25/£50/£100) | `config.js` → `presetAmounts` | Explicitly labelled "provisional" on-page; real amounts TBC |
+| Settlement currency | `config.js` → `currencyCode` | Confirmed GBP from the real test Payment Link (see "Stripe readiness") |
 | Privacy policy / Contact & refunds links | `footer()` | Labels only — both point to `#`, no real page/address yet |
 | Receiving legal entity name | `footer()` copyright line | Deliberately omitted — do not add a name without IPNLF sign-off (see Stripe section: may not be the same entity as the production credit) |
 | TunaTruth site/socials link | `credibility()` | Removed for now (was a dead placeholder link) — add once supplied |
