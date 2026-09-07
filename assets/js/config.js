@@ -56,7 +56,7 @@ const SITE_CONFIG = {
   // Used for Open Graph tags and the QR code. Update once a final
   // domain (custom or Netlify) is chosen, then regenerate the QR
   // asset with scripts/generate_qr.py.
-  canonicalUrl: "https://tunatruth-support.netlify.app/",
+  canonicalUrl: "https://tunatruthdonation.netlify.app/",
 
   // --- Naming -------------------------------------------------------
   // Centralised so "The Tuna Truth" is the only form used in prose

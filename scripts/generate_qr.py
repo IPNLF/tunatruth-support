@@ -12,7 +12,7 @@ Usage:
 import sys
 import qrcode
 
-DEFAULT_URL = "https://tunatruth-support.netlify.app/"
+DEFAULT_URL = "https://tunatruthdonation.netlify.app/"
 
 def main():
     url = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_URL

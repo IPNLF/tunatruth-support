@@ -204,25 +204,31 @@ replaced before this page is genuinely launch-ready. Locations reference
 
 ## Hard external dependencies
 
-- **Stripe** — see "Stripe readiness" above; blocked on a test-mode link
-  today, and on IPNLF confirming the receiving entity for anything live.
-- **Netlify deployment** — needs your own login/OAuth grant; see
-  "Deployment" below.
-- **Final domain** — `SITE_CONFIG.canonicalUrl` (in `assets/js/config.js`)
-  **and** the `og:url`/`og:image` meta tags in `index.html` (static, not
-  config-driven, since Open Graph tags must be readable without JS) all
-  point at a placeholder `tunatruth-support.netlify.app` URL — update all
-  three in the same pass, then re-run `scripts/generate_qr.py`. Do this
-  *after* the domain is final — the QR/URL should not change once
-  distributed.
+- **Stripe** — see "Stripe readiness" above; the test-mode redirect to
+  `thank-you.html` still needs setting in the Stripe dashboard now that
+  a real URL exists (see below), and IPNLF still needs to confirm the
+  receiving entity for anything live.
+- **Netlify deployment** — **done.** Live at
+  https://tunatruthdonation.netlify.app/, connected to this GitHub repo
+  (pushes redeploy automatically). Verified 2026-09-07: both `index.html`
+  and `thank-you.html` load correctly on the live URL with no console
+  errors.
+- ~~Final domain~~ — **done.** `SITE_CONFIG.canonicalUrl`, the
+  `og:url`/`og:image` meta tags in `index.html`, and
+  `scripts/generate_qr.py`'s default all point at
+  `https://tunatruthdonation.netlify.app/`, and the QR asset
+  (`assets/qr/tunatruth-donate-qr.png`) has been regenerated against it.
+  If the domain changes again later (e.g. a branded domain replaces the
+  Netlify subdomain), update all three in the same pass and re-run the
+  QR script again.
 
 ## Known / Assumption / Recommendation
 
 - **Known:** the Bangkok deadline; the flow (landing → amount → Stripe →
   thank-you); test mode only for today's Stripe pass, explicitly not a
   live setup against a personal bank account.
-- **Assumption:** USD as settlement currency; Netlify subdomain acceptable
-  as a fallback if a custom domain isn't ready in time; single "customer
+- **Assumption:** the `tunatruthdonation.netlify.app` subdomain is
+  acceptable for Bangkok rather than a custom domain; single "customer
   chooses amount" Payment Link is an acceptable donation mechanism.
 - **Recommendation:** confirm the Stripe donation-price approach above
   before assuming per-amount fixed links; get the content-approval
@@ -231,7 +237,8 @@ replaced before this page is genuinely launch-ready. Locations reference
 
 ## Not done yet (see chat report for full verification status)
 
-A real Stripe link (test or live), Netlify deployment, final domain, a
-real QR destination test, and every item in the content-approval
-checklist are all outstanding — see the readiness table in the chat
-reply for exactly what has and hasn't been checked.
+The Stripe post-payment redirect (needs setting now a real URL exists),
+a live Stripe account/entity, and every item in the content-approval
+checklist are still outstanding. Netlify deployment and the QR/domain
+are done — see the readiness table in the chat reply for exactly what
+has and hasn't been checked.
