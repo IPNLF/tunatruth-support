@@ -8,13 +8,25 @@
 const SITE_CONFIG = {
 
   // --- Payment -------------------------------------------------
-  // TODO(stripe): replace with the real Payment Link.
-  // This MUST be created inside the Stripe account belonging to the
-  // legal entity that will receive the funds — do not point this at
-  // a Stripe account that isn't that entity's own, even for testing.
-  // Set up as a single Payment Link with a "customer chooses the
-  // amount" price (Stripe's donation-price feature), with a min
-  // amount set, and "after payment" set to redirect to this site's
+  // stripeMode is a human-readable flag only (nothing in the code
+  // branches on it) — it exists so anyone reading this file can see
+  // at a glance which of the three readiness states below applies:
+  //   "test"  — a Stripe TEST-mode Payment Link, for verifying the
+  //             flow only. No real money moves. Current state.
+  //   "live-unverified" — a live Payment Link is in place but the
+  //             full live flow hasn't been run end-to-end yet.
+  //   "live"  — live, verified, and under the correct receiving
+  //             entity's own Stripe account. Do not set this until
+  //             IPNLF has confirmed that entity.
+  stripeMode: "test",
+
+  // TODO(stripe): replace with a real TEST-mode Payment Link once
+  // created (see README "Payment flow"). Do NOT put a live link here
+  // until IPNLF has confirmed the entity that legally receives funds —
+  // this must be created inside THAT entity's own Stripe account, not
+  // a personal one. Set up as a single Payment Link with a "customer
+  // chooses the amount" price (Stripe's donation-price feature), a
+  // minimum amount, and "after payment" redirecting to this site's
   // thank-you.html. That one URL is the only thing that needs to
   // change between test mode, live mode, or a future provider swap.
   stripePaymentLinkUrl: "https://example.com/PLACEHOLDER-stripe-payment-link",
@@ -42,6 +54,12 @@ const SITE_CONFIG = {
   // asset with scripts/generate_qr.py.
   canonicalUrl: "https://tunatruth-support.netlify.app/",
 
+  // --- Naming -------------------------------------------------------
+  // Centralised so "The Tuna Truth" is the only form used in prose
+  // across the site — change it here once, not instance by instance,
+  // if official brand guidance ever specifies otherwise.
+  filmName: "The Tuna Truth",
+
   // --- Share -------------------------------------------------------
-  shareText: "Support TunaTruth — a documentary backed by IPNLF.",
+  shareText: "Support The Tuna Truth — a documentary backed by IPNLF.",
 };

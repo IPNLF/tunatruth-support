@@ -76,8 +76,9 @@ const TT = (() => {
         <div class="tt-hero__identity">
           <p class="tt-hero__eyebrow">A documentary supported by IPNLF</p>
           <h1 class="tt-hero__title">${wordmarkTunaTruth("lg")}</h1>
+          <!-- HOLDING COPY — requires IPNLF/production approval before launch -->
           <p class="tt-hero__support-line">
-            [PLACEHOLDER — one short sentence on what the film is and why support matters]
+            Support the next stage of ${cfg.filmName} and help the film reach audiences around the world.
           </p>
         </div>
         <div class="tt-hero__panel">
@@ -93,16 +94,19 @@ const TT = (() => {
     return `<section class="tt-section" id="about">
       <div class="tt-container tt-section__grid">
         <div class="tt-card">
-          <h2 class="tt-card__title">What TunaTruth is</h2>
-          <p class="tt-card__body">[PLACEHOLDER — 50–100 word synopsis of the documentary: subject, focus, why IPNLF is involved. Do not publish without real copy supplied by the production/IPNLF.]</p>
+          <h2 class="tt-card__title">What ${cfg.filmName} is</h2>
+          <!-- HOLDING COPY — requires IPNLF/production fact-check before launch -->
+          <p class="tt-card__body">${cfg.filmName} explores the people, choices and challenges behind the global tuna industry, asking what a more responsible future for tuna could look like.</p>
         </div>
         <div class="tt-card">
           <h2 class="tt-card__title">What your support helps achieve</h2>
-          <p class="tt-card__body">[PLACEHOLDER — real, specific detail on what additional funding enables: reach, distribution, translation, festival/screening costs, etc. No invented figures or outcomes.]</p>
+          <!-- HOLDING COPY — provisional until production confirms specific use of funds -->
+          <p class="tt-card__body">Making the film is only part of the journey. Further support can help ${cfg.filmName} reach wider audiences through screenings, distribution and engagement, giving more people the opportunity to see the film and take its message further.</p>
         </div>
         <div class="tt-card">
           <h2 class="tt-card__title">Why now</h2>
-          <p class="tt-card__body">[PLACEHOLDER — context on the current screening/campaign moment, e.g. Bangkok industry screening, to explain the urgency of support.]</p>
+          <!-- HOLDING COPY — deliberately not tied to one event, so it doesn't need rewriting once Bangkok has passed -->
+          <p class="tt-card__body">${cfg.filmName} is entering the next stage of its journey, with new screenings and audiences creating an opportunity to build its reach and momentum.</p>
         </div>
       </div>
     </section>`;
@@ -111,8 +115,8 @@ const TT = (() => {
   function shareBlock() {
     return `<section class="tt-section tt-section--soft" id="share">
       <div class="tt-container tt-share">
-        <h2 class="tt-share__title">Already supported? Help it travel further.</h2>
-        <p class="tt-share__body">Share this page with someone who'd want to back the film.</p>
+        <h2 class="tt-share__title">Help the film travel further</h2>
+        <p class="tt-share__body">Know someone who should see ${cfg.filmName}? Share the campaign and help us reach the next audience.</p>
         <div class="tt-share__actions">
           <button type="button" class="tt-btn-secondary" data-role="copy-link">Copy link</button>
           <a class="tt-btn-secondary" data-role="share-email" href="#">Share by email</a>
@@ -126,11 +130,12 @@ const TT = (() => {
     return `<section class="tt-section" id="credibility">
       <div class="tt-container tt-credibility">
         <h2 class="tt-card__title">Behind the film</h2>
-        <p class="tt-card__body">The Tuna Truth is a Sunline Films production, executive produced by IPNLF (International Pole &amp; Line Foundation), presented by Serena Appleby and produced and directed by Sara Pipernos — made with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
-        <p class="tt-card__body">[PLACEHOLDER — a further sentence or two on why IPNLF specifically backs this film and what it means for IPNLF's wider one-by-one fishing mission, if useful beyond the credit above.]</p>
+        <!-- Confirmed factual credit, sourced directly from the official poster asset -->
+        <p class="tt-card__body">${cfg.filmName} is a Sunline Films production, executive produced by IPNLF (International Pole &amp; Line Foundation), presented by Serena Appleby and produced and directed by Sara Pipernos — made with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
+        <!-- HOLDING COPY — requires IPNLF approval before launch -->
+        <p class="tt-card__body">IPNLF supports ${cfg.filmName} as part of its work to promote thriving coastal communities and environmentally and socially responsible tuna fisheries.</p>
         <div class="tt-credibility__links">
           <a href="https://ipnlf.org" target="_blank" rel="noopener">About IPNLF →</a>
-          <span class="tt-credibility__placeholder">[TunaTruth site/socials link — placeholder]</span>
         </div>
       </div>
     </section>`;
@@ -145,12 +150,16 @@ const TT = (() => {
           <span class="tt-footer__x">×</span>
           ${wordmarkTunaTruth("xs")}
         </div>
+        <!-- Privacy/contact links point nowhere yet (href="#") — real pages/addresses
+             needed before launch; see README's content-approval checklist -->
         <nav class="tt-footer__links" aria-label="Legal and contact">
-          <a href="#">[Privacy policy — placeholder]</a>
-          <a href="#">[Refund/contact information — placeholder]</a>
+          <a href="#">Privacy policy</a>
+          <a href="#">Contact &amp; refunds</a>
           <a href="https://ipnlf.org" target="_blank" rel="noopener">ipnlf.org</a>
         </nav>
-        <p class="tt-footer__copy">© ${year} IPNLF. [Legal receiving-entity name — placeholder].</p>
+        <!-- The receiving legal entity is not yet confirmed — do not add a name here
+             without IPNLF sign-off; see README's content-approval checklist -->
+        <p class="tt-footer__copy">© ${year} IPNLF.</p>
       </div>
     </footer>`;
   }
@@ -184,7 +193,7 @@ const TT = (() => {
 
     const emailBtn = document.querySelector('[data-role="share-email"]');
     if (emailBtn) {
-      const subject = encodeURIComponent("Support TunaTruth");
+      const subject = encodeURIComponent(`Support ${cfg.filmName}`);
       const body = encodeURIComponent(`${cfg.shareText}\n\n${cfg.canonicalUrl}`);
       emailBtn.href = `mailto:?subject=${subject}&body=${body}`;
     }

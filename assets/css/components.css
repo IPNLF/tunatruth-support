@@ -250,7 +250,6 @@ a { color: var(--text-link); }
 /* ---- credibility ---- */
 .tt-credibility { max-width: var(--container-narrow); }
 .tt-credibility__links { display: flex; gap: var(--space-4); margin-top: var(--space-3); flex-wrap: wrap; font-size: var(--fs-body-sm); }
-.tt-credibility__placeholder { color: var(--text-muted); font-style: italic; }
 
 /* ---- footer ---- */
 .tt-footer { background: var(--surface-dark); padding: var(--space-6) 0; }
