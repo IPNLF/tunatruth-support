@@ -10,33 +10,37 @@ const SITE_CONFIG = {
   // --- Payment -------------------------------------------------
   // stripeMode is a human-readable flag only (nothing in the code
   // branches on it) — it exists so anyone reading this file can see
-  // at a glance which of the three readiness states below applies:
-  //   "test"  — a Stripe TEST-mode Payment Link, for verifying the
-  //             flow only. No real money moves. Current state.
+  // at a glance which of the four readiness states below applies:
+  //   "test"          — a Stripe TEST-mode Payment Link is wired in,
+  //                     but the flow hasn't been run end-to-end yet.
+  //   "test-verified" — TEST-mode link verified: successful payment,
+  //                     declined payment, and (once set) the redirect
+  //                     to thank-you.html have all been checked by
+  //                     hand. No real money moves. Current state —
+  //                     verified 2026-09-07, EXCEPT the redirect (see
+  //                     README "Stripe readiness" for the one thing
+  //                     still open).
   //   "live-unverified" — a live Payment Link is in place but the
-  //             full live flow hasn't been run end-to-end yet.
-  //   "live"  — live, verified, and under the correct receiving
-  //             entity's own Stripe account. Do not set this until
-  //             IPNLF has confirmed that entity.
-  stripeMode: "test",
+  //                     full live flow hasn't been run end-to-end yet.
+  //   "live"          — live, verified, and under the correct
+  //                     receiving entity's own Stripe account. Do not
+  //                     set this until IPNLF has confirmed that entity.
+  stripeMode: "test-verified",
 
-  // TODO(stripe): replace with a real TEST-mode Payment Link once
-  // created (see README "Payment flow"). Do NOT put a live link here
-  // until IPNLF has confirmed the entity that legally receives funds —
-  // this must be created inside THAT entity's own Stripe account, not
-  // a personal one. Set up as a single Payment Link with a "customer
-  // chooses the amount" price (Stripe's donation-price feature), a
-  // minimum amount, and "after payment" redirecting to this site's
-  // thank-you.html. That one URL is the only thing that needs to
-  // change between test mode, live mode, or a future provider swap.
-  stripePaymentLinkUrl: "https://example.com/PLACEHOLDER-stripe-payment-link",
+  // TEST-mode Payment Link (supplied 2026-09-07). Do NOT replace this
+  // with a live link until IPNLF has confirmed the entity that legally
+  // receives funds — a live link must be created inside THAT entity's
+  // own Stripe account, not a personal one. That one URL is the only
+  // thing that needs to change between test mode, live mode, or a
+  // future provider swap.
+  stripePaymentLinkUrl: "https://buy.stripe.com/test_dRmdRa4Hn5zufSMgG78bS00",
 
   // --- Preset donation amounts (provisional — see README) -------
   // Illustrative only. Not tied to any confirmed impact claim.
   // Replace once IPNLF supplies real suggested amounts.
   presetAmounts: [25, 50, 100],
-  currencySymbol: "$",
-  currencyCode: "USD", // ASSUMPTION — confirm settlement currency with IPNLF/Stripe account owner
+  currencySymbol: "£",
+  currencyCode: "GBP", // Confirmed 2026-09-07: the actual Stripe Payment Link charges in GBP
 
   // --- Brand hierarchy -------------------------------------------
   // "primary" gets top billing (first lock-up, larger lock-up in the

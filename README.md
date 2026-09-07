@@ -64,25 +64,54 @@ still being decided. To keep that reversible:
 - Colours, logos and copy are not hard-wired to one brand elsewhere in the
   CSS/JS — there's no `if (brand === 'ipnlf')` scattered through the file.
 
-## Stripe readiness — three separate states, don't conflate them
+## Stripe readiness — four separate states, don't conflate them
 
-1. **Test payment flow working** — a Stripe TEST-mode Payment Link is
-   wired in via `assets/js/config.js`, and the full flow (successful
-   payment, declined payment, redirect to `thank-you.html`) has been
-   verified. *(Not yet true — waiting on a test-mode link.)*
-2. **Live Stripe account configured** — a live Payment Link exists,
+1. **Test link wired in** — done. `assets/js/config.js` points at a real
+   Stripe TEST-mode (Sandbox) Payment Link, supplied 2026-09-07.
+2. **Test payment flow verified** — **mostly done, one gap.** I ran the
+   actual Stripe Sandbox checkout by hand:
+   - ✅ Successful payment: card `4242 4242 4242 4242`, £50.00 — went
+     through, Stripe showed its own "Thanks for your payment" screen.
+   - ✅ Declined payment: card `4000 0000 0000 0002` — Stripe correctly
+     showed *"Your credit card was declined. Try paying with a debit
+     card instead"* inline, without losing the entered amount/email.
+   - ❌ **Redirect to `thank-you.html` — not happening.** After a
+     successful payment, Stripe shows its own generic confirmation
+     page, not our thank-you page. The Payment Link's "After payment"
+     setting needs to be changed to "Redirect customers to your
+     website" with our `thank-you.html` URL — I can't set this myself,
+     it's in the Payment Link's own settings in your Stripe dashboard.
+     Once local testing isn't practical (no public URL yet), this can
+     be finalised right after Netlify deployment.
+3. **Live Stripe account configured** — a live Payment Link exists,
    created inside the Stripe account of the entity that legally receives
    the funds (not a personal account). *(Not started — depends on IPNLF
    confirming that entity.)*
-3. **Live payment flow verified** — a real transaction has actually been
+4. **Live payment flow verified** — a real transaction has actually been
    run through the live link and confirmed end to end. *(Not started.)*
 
 `SITE_CONFIG.stripeMode` in `config.js` is a human-readable flag (not
-used by any code logic) that names which of these states currently
-applies — keep it updated as you progress so anyone reading the config
-knows at a glance not to assume more readiness than actually exists.
-Per instruction, this pass deliberately does **not** set up a live
-Stripe account against a personal bank account — only test mode.
+used by any code logic) — currently `"test-verified"`, reflecting state
+2 above (with the redirect caveat noted). Per instruction, this pass
+deliberately did **not** touch live mode or any personal bank account.
+
+**Two other things the real Sandbox checkout surfaced, not previously
+known:**
+- **Currency is GBP, not USD.** The Payment Link charges in £. I've
+  updated `config.js` (`currencySymbol`/`currencyCode`) and the on-page
+  preset buttons to match — they now show £25/£50/£100. If GBP isn't
+  actually the intended settlement currency, this needs correcting at
+  the Stripe Product level, not just in our config.
+- **Product name in Stripe is "Support Tuna Truth"**, missing "The" —
+  inconsistent with the "The Tuna Truth" naming used everywhere else.
+  This is set in the Stripe dashboard (Product name), not something I
+  can change from the codebase — worth an edit there for consistency,
+  low priority.
+- Klarna and Revolut Pay are both offered as payment methods alongside
+  card, in addition to card — Stripe's account-level default payment
+  methods, not something this page's code controls. Worth a quick look
+  at whether "pay later" via Klarna is a fit for a donation (not wrong,
+  just worth a deliberate yes/no rather than leaving Stripe's default).
 
 ## Payment flow — how the Stripe link works here
 
