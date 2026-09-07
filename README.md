@@ -68,21 +68,17 @@ still being decided. To keep that reversible:
 
 1. **Test link wired in** — done. `assets/js/config.js` points at a real
    Stripe TEST-mode (Sandbox) Payment Link, supplied 2026-09-07.
-2. **Test payment flow verified** — **mostly done, one gap.** I ran the
-   actual Stripe Sandbox checkout by hand:
-   - ✅ Successful payment: card `4242 4242 4242 4242`, £50.00 — went
-     through, Stripe showed its own "Thanks for your payment" screen.
+2. **Test payment flow verified** — **done**, all three legs checked by
+   hand against the real Stripe Sandbox checkout:
+   - ✅ Successful payment: card `4242 4242 4242 4242` — went through.
    - ✅ Declined payment: card `4000 0000 0000 0002` — Stripe correctly
      showed *"Your credit card was declined. Try paying with a debit
      card instead"* inline, without losing the entered amount/email.
-   - ❌ **Redirect to `thank-you.html` — not happening.** After a
-     successful payment, Stripe shows its own generic confirmation
-     page, not our thank-you page. The Payment Link's "After payment"
-     setting needs to be changed to "Redirect customers to your
-     website" with our `thank-you.html` URL — I can't set this myself,
-     it's in the Payment Link's own settings in your Stripe dashboard.
-     Once local testing isn't practical (no public URL yet), this can
-     be finalised right after Netlify deployment.
+   - ✅ Redirect to `thank-you.html` — confirmed 2026-09-07 after you set
+     "After payment" → "Redirect customers to your website" in the
+     Payment Link's settings: a real test payment landed on our actual
+     thank-you page (`tunatruthdonation.netlify.app/thank-you.html`),
+     not Stripe's generic confirmation.
 3. **Live Stripe account configured** — a live Payment Link exists,
    created inside the Stripe account of the entity that legally receives
    the funds (not a personal account). *(Not started — depends on IPNLF
@@ -92,8 +88,10 @@ still being decided. To keep that reversible:
 
 `SITE_CONFIG.stripeMode` in `config.js` is a human-readable flag (not
 used by any code logic) — currently `"test-verified"`, reflecting state
-2 above (with the redirect caveat noted). Per instruction, this pass
-deliberately did **not** touch live mode or any personal bank account.
+2 above, now fully confirmed. Per instruction, this pass deliberately
+did **not** touch live mode or any personal bank account. States 3–4
+(live account, live flow) remain untouched, waiting on IPNLF confirming
+the receiving entity.
 
 **Two other things the real Sandbox checkout surfaced, not previously
 known:**
@@ -102,11 +100,8 @@ known:**
   preset buttons to match — they now show £25/£50/£100. If GBP isn't
   actually the intended settlement currency, this needs correcting at
   the Stripe Product level, not just in our config.
-- **Product name in Stripe is "Support Tuna Truth"**, missing "The" —
-  inconsistent with the "The Tuna Truth" naming used everywhere else.
-  This is set in the Stripe dashboard (Product name), not something I
-  can change from the codebase — worth an edit there for consistency,
-  low priority.
+- ~~Product name in Stripe was "Support Tuna Truth", missing "The"~~ —
+  **fixed**, now reads "Support The Tuna Truth" in the live checkout.
 - Klarna and Revolut Pay are both offered as payment methods alongside
   card, in addition to card — Stripe's account-level default payment
   methods, not something this page's code controls. Worth a quick look
@@ -237,8 +232,8 @@ replaced before this page is genuinely launch-ready. Locations reference
 
 ## Not done yet (see chat report for full verification status)
 
-The Stripe post-payment redirect (needs setting now a real URL exists),
-a live Stripe account/entity, and every item in the content-approval
-checklist are still outstanding. Netlify deployment and the QR/domain
-are done — see the readiness table in the chat reply for exactly what
-has and hasn't been checked.
+A live Stripe account/entity and every item in the content-approval
+checklist are still outstanding. Netlify deployment, the QR/domain, and
+the full test-mode payment flow (including the redirect) are all done
+and verified — see the readiness table in the chat reply for exactly
+what has and hasn't been checked.
