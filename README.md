@@ -184,7 +184,7 @@ replaced before this page is genuinely launch-ready. Locations reference
 | Settlement currency | `config.js` → `currencyCode` | Confirmed GBP from the real test Payment Link (see "Stripe readiness") |
 | Privacy policy / Contact & refunds links | `footer()` | Labels only — both point to `#`, no real page/address yet |
 | Receiving legal entity name | `footer()` copyright line | Deliberately omitted — do not add a name without IPNLF sign-off (see Stripe section: may not be the same entity as the production credit) |
-| TunaTruth site/socials link | `credibility()` | Removed for now (was a dead placeholder link) — add once supplied |
+| ~~TunaTruth site/socials link~~ | `credibility()` | **Done** — "Find out more →" now links to https://www.tunatruth.com/ |
 
 **Already resolved with real, supplied material (not holding copy):**
 - IPNLF's and The Tuna Truth's actual logos (`assets/img/ipnlf-logo.png`,
@@ -200,6 +200,10 @@ replaced before this page is genuinely launch-ready. Locations reference
   Wild Award finalist nomination (Onscreen Personality category,
   alongside Sir David Attenborough and Benedict Cumberbatch) — supplied
   directly 2026-09-07, now in `credibility()`.
+- The real Jackson Wild logo (`assets/img/jackson-wild-logo.png` — a
+  supplied screenshot, not a clean transparent asset; sits in a bordered
+  callout box in "Behind the film" and as a small text badge near the
+  donate panel) and the real tunatruth.com link.
 
 ## Hard external dependencies
 

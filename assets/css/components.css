@@ -278,9 +278,45 @@ a { color: var(--text-link); }
 .tt-btn-secondary:hover { background: var(--ipnlf-deep); color: var(--ipnlf-white); }
 .tt-share__copied { margin: var(--space-3) 0 0; color: var(--ipnlf-teal-deep); font-size: var(--fs-body-sm); }
 
-/* ---- credibility ---- */
+/* ---- credibility ----
+   Distinct treatments per content type, rather than four identical
+   paragraphs, so this reads as a designed section rather than a
+   dump of copy: a lead sentence, a highlighted award callout, a
+   quieter film-credits strip, then plain body text. */
 .tt-credibility { max-width: var(--container-narrow); }
+.tt-credibility__lead {
+  margin: 0 0 var(--space-4);
+  color: var(--text-strong);
+  font-size: var(--fs-body-lg);
+}
+.tt-credibility__award {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface-soft);
+  border-radius: var(--radius-md);
+}
+.tt-credibility__award-logo {
+  height: 40px;
+  width: auto;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+.tt-credibility__award p { margin: 0; color: var(--text-body); font-size: var(--fs-body-sm); }
+.tt-credibility__credit {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: var(--fs-body-sm);
+}
 .tt-credibility__links { display: flex; gap: var(--space-4); margin-top: var(--space-3); flex-wrap: wrap; font-size: var(--fs-body-sm); }
+@media (max-width: 480px) {
+  .tt-credibility__award { flex-direction: column; align-items: flex-start; }
+}
 
 /* ---- footer ---- */
 .tt-footer { background: var(--surface-dark); padding: var(--space-6) 0; }

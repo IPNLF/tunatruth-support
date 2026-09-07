@@ -14,7 +14,9 @@ const TT = (() => {
   // ---- small building blocks ----------------------------------
 
   function wordmarkIpnlf(size) {
-    return `<img class="tt-logo tt-logo--ipnlf tt-logo--${size}" src="assets/img/ipnlf-logo.png" alt="IPNLF — for one-by-one fishers">`;
+    return `<a href="https://ipnlf.org" target="_blank" rel="noopener" aria-label="IPNLF — for one-by-one fishers (opens ipnlf.org)">
+      <img class="tt-logo tt-logo--ipnlf tt-logo--${size}" src="assets/img/ipnlf-logo.png" alt="IPNLF — for one-by-one fishers">
+    </a>`;
   }
 
   function wordmarkTunaTruth(size) {
@@ -34,10 +36,11 @@ const TT = (() => {
   }
 
   function header() {
+    // The IPNLF mark in the lockup is itself the link to ipnlf.org now
+    // (see wordmarkIpnlf()) — no need for a separate text link too.
     return `<header class="tt-header">
       <div class="tt-container tt-header__inner">
         ${brandLockup()}
-        <a class="tt-header__link" href="https://ipnlf.org" target="_blank" rel="noopener">ipnlf.org</a>
       </div>
     </header>`;
   }
@@ -130,16 +133,24 @@ const TT = (() => {
     return `<section class="tt-section" id="credibility">
       <div class="tt-container tt-credibility">
         <h2 class="tt-card__title">Behind the film</h2>
+
         <!-- Confirmed copy, supplied 2026-09-07 -->
-        <p class="tt-card__body">Filmed in the Azores, Portugal, ${cfg.filmName} shines a light on troubling aspects of the seafood industry and invites viewers on a journey towards more sustainable, responsible choices.</p>
+        <p class="tt-credibility__lead">Filmed in the Azores, Portugal, ${cfg.filmName} shines a light on troubling aspects of the seafood industry and invites viewers on a journey towards more sustainable, responsible choices.</p>
+
+        <!-- Real award laurel, screenshot of the official Jackson Wild logo supplied 2026-09-07 -->
+        <div class="tt-credibility__award">
+          <img class="tt-credibility__award-logo" src="assets/img/jackson-wild-logo.png" alt="Jackson Wild">
+          <p>Shortlisted as a finalist for a Jackson Wild Award — widely regarded as the nature-film world's equivalent of the Oscars® — nominated in the Onscreen Personality category alongside Sir David Attenborough and Benedict Cumberbatch.</p>
+        </div>
+
         <!-- Confirmed factual credit, sourced directly from the official poster asset, presenter bio supplied 2026-09-07 -->
-        <p class="tt-card__body">${cfg.filmName} is a Sunline Films production, commissioned and executive produced by IPNLF (International Pole &amp; Line Foundation), presented by chef Serena Appleby (BBC Three's <em>Hungry For It</em>) and produced and directed by Sara Pipernos — made with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
-        <!-- Confirmed copy, supplied 2026-09-07 -->
-        <p class="tt-card__body">${cfg.filmName} has been shortlisted as a finalist for a Jackson Wild Award — widely regarded as the nature-film world's equivalent of the Oscars® — nominated in the Onscreen Personality category alongside Sir David Attenborough and Benedict Cumberbatch.</p>
+        <p class="tt-credibility__credit">${cfg.filmName} is a Sunline Films production, commissioned and executive produced by IPNLF (International Pole &amp; Line Foundation), presented by chef Serena Appleby (BBC Three's <em>Hungry For It</em>) and produced and directed by Sara Pipernos — made with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
+
         <!-- HOLDING COPY — requires IPNLF approval before launch -->
         <p class="tt-card__body">IPNLF supports ${cfg.filmName} as part of its work to promote thriving coastal communities and environmentally and socially responsible tuna fisheries.</p>
+
         <div class="tt-credibility__links">
-          <a href="https://ipnlf.org" target="_blank" rel="noopener">About IPNLF →</a>
+          <a href="https://www.tunatruth.com/" target="_blank" rel="noopener">Find out more →</a>
         </div>
       </div>
     </section>`;
