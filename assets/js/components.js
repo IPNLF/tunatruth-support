@@ -165,10 +165,10 @@ const TT = (() => {
           <span class="tt-footer__x">×</span>
           ${wordmarkTunaTruth("xs")}
         </div>
-        <!-- Privacy/contact links point nowhere yet (href="#") — real pages/addresses
-             needed before launch; see README's content-approval checklist -->
+        <!-- Contact/refunds still points nowhere (href="#") — needs real
+             contact details before launch; see README's content-approval checklist -->
         <nav class="tt-footer__links" aria-label="Legal and contact">
-          <a href="#">Privacy policy</a>
+          <a href="https://ipnlf.org/privacy-policy/" target="_blank" rel="noopener">Privacy policy</a>
           <a href="#">Contact &amp; refunds</a>
           <a href="https://ipnlf.org" target="_blank" rel="noopener">ipnlf.org</a>
         </nav>
