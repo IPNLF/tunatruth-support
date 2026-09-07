@@ -54,9 +54,12 @@ const SITE_CONFIG = {
 
   // --- Canonical URL ----------------------------------------------
   // Used for Open Graph tags and the QR code. Update once a final
-  // domain (custom or Netlify) is chosen, then regenerate the QR
-  // asset with scripts/generate_qr.py.
-  canonicalUrl: "https://tunatruthdonation.netlify.app/",
+  // domain (custom or GitHub Pages URL) is chosen, then regenerate the
+  // QR asset with scripts/generate_qr.py. Moved off Netlify 2026-09-08
+  // to GitHub Pages (free, no credit/deploy-limit concerns for a
+  // static site) — update again if a tunatruth.com/ipnlf.org subdomain
+  // becomes available.
+  canonicalUrl: "https://ipnlf.github.io/tunatruth-support/",
 
   // --- Naming -------------------------------------------------------
   // Centralised so "The Tuna Truth" is the only form used in prose
