@@ -55,8 +55,16 @@ const TT = (() => {
     </div>`;
   }
 
+  function awardBadge() {
+    return `<div class="tt-award-badge">
+      <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 9.5 8.5 3 9l5 4.5L6.5 20 12 16.3 17.5 20 16 13.5l5-4.5-6.5-.5L12 2Z"/></svg>
+      <span>Jackson Wild Award finalist</span>
+    </div>`;
+  }
+
   function donatePanel() {
     return `<div class="tt-donate-panel">
+      ${awardBadge()}
       <p class="tt-donate-panel__eyebrow">Support the documentary</p>
       ${amountPicker()}
       <p class="tt-donate-panel__note">Provisional amounts — final suggested amounts to be confirmed.</p>

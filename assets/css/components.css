@@ -106,6 +106,7 @@ a { color: var(--text-link); }
   .tt-logo--tunatruth.tt-logo--lg { width: clamp(170px, 58vw, 260px); }
   .tt-hero__support-line { font-size: var(--fs-body); }
   .tt-donate-panel { padding: var(--space-4); }
+  .tt-award-badge { margin-bottom: var(--space-2); }
   .tt-donate-panel__eyebrow { margin-bottom: var(--space-2); }
   .tt-amounts { margin-bottom: var(--space-1); }
   .tt-donate-panel__note { margin-bottom: var(--space-2); }
@@ -139,6 +140,19 @@ a { color: var(--text-link); }
   border-radius: var(--radius-lg);
   padding: var(--space-5);
   box-shadow: var(--shadow-md);
+}
+.tt-award-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 var(--space-3);
+  padding: 3px var(--space-2);
+  border: 1px solid var(--ipnlf-gold);
+  border-radius: var(--radius-pill);
+  color: var(--ipnlf-gold);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 .tt-donate-panel__eyebrow {
   margin: 0 0 var(--space-3);
