@@ -58,19 +58,10 @@ const TT = (() => {
     </div>`;
   }
 
-  function awardBadge() {
-    return `<div class="tt-award-badge">
-      <svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2 9.5 8.5 3 9l5 4.5L6.5 20 12 16.3 17.5 20 16 13.5l5-4.5-6.5-.5L12 2Z"/></svg>
-      <span>Jackson Wild Award finalist</span>
-    </div>`;
-  }
-
   function donatePanel() {
     return `<div class="tt-donate-panel">
-      ${awardBadge()}
       <p class="tt-donate-panel__eyebrow">Support the documentary</p>
       ${amountPicker()}
-      <p class="tt-donate-panel__note">Provisional amounts — final suggested amounts to be confirmed.</p>
       <a class="tt-cta" href="${cfg.stripePaymentLinkUrl}" data-role="donate-cta">
         Donate now
       </a>
@@ -134,26 +125,26 @@ const TT = (() => {
       <div class="tt-container tt-credibility">
         <h2 class="tt-card__title">Behind the film</h2>
 
+        <!-- Confirmed factual credit, sourced directly from the official poster asset -->
+        <p>${cfg.filmName} is a Sunline Films production, commissioned and executive produced by IPNLF, presented by chef Serena Appleby and produced and directed by Sara Pipernos, with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
+
         <!-- HOLDING COPY — requires production/IPNLF approval before launch -->
         <p>Filmed in the Azores, Portugal, ${cfg.filmName} shines a light on troubling aspects of the seafood industry and invites viewers on a journey towards more sustainable, responsible choices.</p>
+
+        <!-- HOLDING COPY — requires IPNLF approval before launch -->
+        <p>IPNLF supports the film as part of its work to promote thriving coastal communities and environmentally and socially responsible tuna fisheries.</p>
 
         <!-- Confirmed 2026-09-08 against Jackson Wild's own 2026 Media Awards
              page (jacksonwild.org/2026-media-awards) and the Human Rights at
              Sea article on Sunline Films — Onscreen Personality finalists are
              Attenborough, Cumberbatch, Will Smith and Serena Appleby. Kept to
-             one plain, attributable claim ("finalist") rather than repeating
-             the hero's own award badge or adding an unsourced "Oscars of
-             nature film" comparison. -->
+             one plain, attributable claim ("finalist") rather than an
+             unsourced "Oscars of nature film" comparison. -->
+        <p class="tt-credibility__eyebrow">Jackson Wild</p>
         <p class="tt-credibility__award-line">
           <img class="tt-credibility__award-mark" src="assets/img/jackson-wild-logo.png" alt="Jackson Wild" loading="lazy">
           <span><strong>Jackson Wild Award finalist</strong> — Serena Appleby was named a finalist in the Onscreen Personality category alongside Sir David Attenborough, Benedict Cumberbatch and Will Smith.</span>
         </p>
-
-        <!-- Confirmed factual credit, sourced directly from the official poster asset -->
-        <p>${cfg.filmName} is a Sunline Films production, commissioned and executive produced by IPNLF (International Pole &amp; Line Foundation), presented by chef Serena Appleby and produced and directed by Sara Pipernos, with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
-
-        <!-- HOLDING COPY — requires IPNLF approval before launch -->
-        <p>IPNLF supports the film as part of its work to promote thriving coastal communities and environmentally and socially responsible tuna fisheries.</p>
 
         <div class="tt-credibility__links">
           <a href="https://www.tunatruth.com/" target="_blank" rel="noopener">Find out more →</a>

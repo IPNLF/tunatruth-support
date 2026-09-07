@@ -181,7 +181,7 @@ replaced before this page is genuinely launch-ready. Locations reference
 | "Filmed in the Azores..." synopsis | `credibility()` | Holding copy — needs production/IPNLF fact-check |
 | "IPNLF supports the film..." sentence | `credibility()` | Holding copy — needs IPNLF approval specifically. (The award-finalist line and the production credit in this same section are independently verified/confirmed, not holding copy — see below.) |
 | Thank-you page body copy | `thank-you.html` | Holding copy — needs approval |
-| Suggested donation amounts (£25/£50/£100) | `config.js` → `presetAmounts` | Explicitly labelled "provisional" on-page; real amounts TBC |
+| Suggested donation amounts (£25/£50/£100) | `config.js` → `presetAmounts` | No longer labelled on-page as provisional (removed 2026-09-08 — felt like distracting caveat text) — but still illustrative, not confirmed; real amounts TBC |
 | Settlement currency | `config.js` → `currencyCode` | Confirmed GBP from the real test Payment Link (see "Stripe readiness") |
 | ~~Privacy policy link~~ | `footer()` | **Done** — links to IPNLF's real policy at https://ipnlf.org/privacy-policy/ (verified live 2026-09-07) |
 | ~~Contact & refunds link~~ | `footer()` | **Removed by request 2026-09-08** — decided not to add a dedicated contact/refunds page; donors can reach out through existing channels if there's a problem |

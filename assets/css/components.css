@@ -106,10 +106,8 @@ a { color: var(--text-link); }
   .tt-logo--tunatruth.tt-logo--lg { width: clamp(170px, 58vw, 260px); }
   .tt-hero__support-line { font-size: var(--fs-body); }
   .tt-donate-panel { padding: var(--space-4); }
-  .tt-award-badge { margin-bottom: var(--space-2); }
   .tt-donate-panel__eyebrow { margin-bottom: var(--space-2); }
-  .tt-amounts { margin-bottom: var(--space-1); }
-  .tt-donate-panel__note { margin-bottom: var(--space-2); }
+  .tt-amounts { margin-bottom: var(--space-3); }
   .tt-donate-panel__trust { margin-top: var(--space-2); }
 }
 @media (min-width: 860px) {
@@ -141,19 +139,6 @@ a { color: var(--text-link); }
   padding: var(--space-5);
   box-shadow: var(--shadow-md);
 }
-.tt-award-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin: 0 0 var(--space-3);
-  padding: 3px var(--space-2);
-  border: 1px solid var(--ipnlf-gold);
-  border-radius: var(--radius-pill);
-  color: var(--ipnlf-gold);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
 .tt-donate-panel__eyebrow {
   margin: 0 0 var(--space-3);
   color: var(--ipnlf-white);
@@ -164,7 +149,7 @@ a { color: var(--text-link); }
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-2);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-4);
 }
 .tt-amount {
   font-family: var(--font-text);
@@ -183,12 +168,6 @@ a { color: var(--text-link); }
   background: var(--ipnlf-gold);
   border-color: var(--ipnlf-gold);
   color: var(--cta-text);
-}
-.tt-donate-panel__note {
-  margin: 0 0 var(--space-4);
-  font-size: var(--fs-caption);
-  color: var(--text-on-dark-soft);
-  font-style: italic;
 }
 .tt-cta {
   display: block;
@@ -218,8 +197,12 @@ a { color: var(--text-link); }
 .tt-donate-panel__trust svg { color: var(--ipnlf-teal); flex-shrink: 0; }
 
 /* ---- generic sections ---- */
-.tt-section { padding: var(--space-7) 0; }
-.tt-section--soft { background: var(--surface-soft); }
+/* 2.625rem is ~12.5% tighter than the space-7 (3rem) this used to be —
+   applies to "Behind the film"; "Why your support matters" and "Help
+   the film travel further" have their own (tighter still) overrides
+   below, per the 2026-09-08 spacing pass. */
+.tt-section { padding: 2.625rem 0; }
+.tt-section--soft { background: var(--surface-soft); padding: 2.25rem 0; }
 .tt-section__grid {
   display: grid;
   gap: var(--space-5);
@@ -241,7 +224,7 @@ a { color: var(--text-link); }
    Deliberately lighter than a full .tt-section: one short reassurance
    block, not a third of an information page, so it doesn't compete
    with the hero/donate panel above it. */
-.tt-why { padding: var(--space-6) 0; }
+.tt-why { padding: 1.75rem 0; } /* ~12.5% tighter than the 2rem (space-6) this used to be */
 .tt-why__inner { max-width: var(--container-narrow); }
 .tt-why__title {
   margin: 0 0 var(--space-2);
@@ -304,6 +287,16 @@ a { color: var(--text-link); }
   margin-top: 3px;
 }
 .tt-credibility__links { display: flex; gap: var(--space-4); margin-top: var(--space-1); flex-wrap: wrap; font-size: var(--fs-body-sm); }
+/* Small label, same typographic language as the hero eyebrow (just
+   re-toned for a light background) — not a new decorative pattern. */
+.tt-credibility p.tt-credibility__eyebrow {
+  margin: 0 0 var(--space-1);
+  color: var(--text-muted);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-overline);
+}
 
 /* ---- footer ---- */
 .tt-footer { background: var(--surface-dark); padding: var(--space-6) 0; }
