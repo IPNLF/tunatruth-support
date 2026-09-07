@@ -178,8 +178,7 @@ replaced before this page is genuinely launch-ready. Locations reference
 |---|---|---|
 | Hero support line ("Support the next stage of...") | `heroDonate()` | Holding copy — needs approval |
 | "Why your support matters" body | `whySupportMatters()` | Holding copy — provisional until production confirms actual use of funds (merges the old "what your support helps achieve" + "why now" into one short block) |
-| "The Tuna Truth explores..." synopsis | `credibility()` (moved from the old 3-column section — deeper subject-matter detail now lives with "Behind the film", not immediately under the hero) | Holding copy — **needs fact-check**, written without seeing the film |
-| "IPNLF supports The Tuna Truth..." sentence | `credibility()` | Holding copy — needs IPNLF approval specifically |
+| "IPNLF supports The Tuna Truth..." sentence | `credibility()` | Holding copy — needs IPNLF approval specifically (the only remaining holding copy in "Behind the film" — the synopsis, presenter bio and award mention are all now confirmed, see below) |
 | Thank-you page body copy | `thank-you.html` | Holding copy — needs approval |
 | Suggested donation amounts (£25/£50/£100) | `config.js` → `presetAmounts` | Explicitly labelled "provisional" on-page; real amounts TBC |
 | Settlement currency | `config.js` → `currencyCode` | Confirmed GBP from the real test Payment Link (see "Stripe readiness") |
@@ -196,6 +195,11 @@ replaced before this page is genuinely launch-ready. Locations reference
 - The "Behind the film" production credit (Sunline Films, IPNLF as
   executive producer, presenter Serena Appleby, director Sara Pipernos,
   supporting orgs) — copied directly from the official poster asset.
+- The film's synopsis ("Filmed in the Azores..."), Serena Appleby's bio
+  (chef, presenter of BBC Three's *Hungry For It*), and the Jackson
+  Wild Award finalist nomination (Onscreen Personality category,
+  alongside Sir David Attenborough and Benedict Cumberbatch) — supplied
+  directly 2026-09-07, now in `credibility()`.
 
 ## Hard external dependencies
 

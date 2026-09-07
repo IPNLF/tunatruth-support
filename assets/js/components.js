@@ -122,10 +122,12 @@ const TT = (() => {
     return `<section class="tt-section" id="credibility">
       <div class="tt-container tt-credibility">
         <h2 class="tt-card__title">Behind the film</h2>
-        <!-- HOLDING COPY — requires IPNLF/production fact-check before launch -->
-        <p class="tt-card__body">${cfg.filmName} explores the people, choices and challenges behind the global tuna industry, asking what a more responsible future for tuna could look like.</p>
-        <!-- Confirmed factual credit, sourced directly from the official poster asset -->
-        <p class="tt-card__body">${cfg.filmName} is a Sunline Films production, executive produced by IPNLF (International Pole &amp; Line Foundation), presented by Serena Appleby and produced and directed by Sara Pipernos — made with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
+        <!-- Confirmed copy, supplied 2026-09-07 -->
+        <p class="tt-card__body">Filmed in the Azores, Portugal, ${cfg.filmName} shines a light on troubling aspects of the seafood industry and invites viewers on a journey towards more sustainable, responsible choices.</p>
+        <!-- Confirmed factual credit, sourced directly from the official poster asset, presenter bio supplied 2026-09-07 -->
+        <p class="tt-card__body">${cfg.filmName} is a Sunline Films production, commissioned and executive produced by IPNLF (International Pole &amp; Line Foundation), presented by chef Serena Appleby (BBC Three's <em>Hungry For It</em>) and produced and directed by Sara Pipernos — made with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
+        <!-- Confirmed copy, supplied 2026-09-07 -->
+        <p class="tt-card__body">${cfg.filmName} has been shortlisted as a finalist for a Jackson Wild Award — widely regarded as the nature-film world's equivalent of the Oscars® — nominated in the Onscreen Personality category alongside Sir David Attenborough and Benedict Cumberbatch.</p>
         <!-- HOLDING COPY — requires IPNLF approval before launch -->
         <p class="tt-card__body">IPNLF supports ${cfg.filmName} as part of its work to promote thriving coastal communities and environmentally and socially responsible tuna fisheries.</p>
         <div class="tt-credibility__links">
