@@ -47,22 +47,28 @@ const TT = (() => {
 
   // ---- the above-the-fold identity + donation panel ------------
 
+  // Index of the preset that's selected by default (matches the
+  // "is-selected" starting state) — its own fixed-price link is what
+  // the CTA points at before anyone clicks anything.
+  const DEFAULT_PRESET_INDEX = 1;
+
   function amountPicker() {
-    const buttons = cfg.presetAmounts.map((amt, i) => `
-      <button type="button" class="tt-amount ${i === 1 ? "is-selected" : ""}" data-amount="${amt}">
-        ${cfg.currencySymbol}${amt}
+    const buttons = cfg.presetAmounts.map((preset, i) => `
+      <button type="button" class="tt-amount ${i === DEFAULT_PRESET_INDEX ? "is-selected" : ""}" data-amount="${preset.amount}" data-url="${preset.url}">
+        ${cfg.currencySymbol}${preset.amount}
       </button>`).join("");
     return `<div class="tt-amounts" role="group" aria-label="Choose a donation amount">
       ${buttons}
-      <button type="button" class="tt-amount tt-amount--other" data-amount="other">Other</button>
+      <button type="button" class="tt-amount tt-amount--other" data-amount="other" data-url="${cfg.stripePaymentLinkUrl}">Other</button>
     </div>`;
   }
 
   function donatePanel() {
+    const defaultUrl = cfg.presetAmounts[DEFAULT_PRESET_INDEX].url;
     return `<div class="tt-donate-panel">
       <p class="tt-donate-panel__eyebrow">Support the documentary</p>
       ${amountPicker()}
-      <a class="tt-cta" href="${cfg.stripePaymentLinkUrl}" data-role="donate-cta">
+      <a class="tt-cta" href="${defaultUrl}" data-role="donate-cta">
         Donate now
       </a>
       <p class="tt-donate-panel__trust">
@@ -177,10 +183,17 @@ const TT = (() => {
 
   function initInteractions() {
     const amountButtons = document.querySelectorAll(".tt-amount");
+    const donateCta = document.querySelector('[data-role="donate-cta"]');
     amountButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         amountButtons.forEach((b) => b.classList.remove("is-selected"));
         btn.classList.add("is-selected");
+        // Each preset (and "Other") carries its own Payment Link, so
+        // selecting an amount actually changes what Stripe charges,
+        // rather than always landing on one link's default amount.
+        if (donateCta && btn.dataset.url) {
+          donateCta.href = btn.dataset.url;
+        }
       });
     });
 

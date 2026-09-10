@@ -33,13 +33,26 @@ const SITE_CONFIG = {
   // a live link must be created inside THAT entity's own Stripe
   // account, not a personal one. That one URL is the only thing that
   // needs to change between test mode, live mode, or a future provider
-  // swap.
+  // swap. This is now specifically the FLEXIBLE ("customer chooses
+  // price") link, used for the "Other" amount button — see
+  // presetAmounts below for the fixed-price links per preset amount.
   stripePaymentLinkUrl: "https://buy.stripe.com/test_28E9AUgq56DygWQ61t8bS01",
 
   // --- Preset donation amounts (provisional — see README) -------
   // Illustrative only. Not tied to any confirmed impact claim.
   // Replace once IPNLF supplies real suggested amounts.
-  presetAmounts: [50, 200, 500],
+  //
+  // Each preset now has its OWN fixed-price Payment Link (supplied
+  // 2026-09-10), so selecting an amount actually carries through to
+  // Stripe instead of always landing on the flexible link's default.
+  // Trade-off, deliberately accepted: four links to keep in sync
+  // instead of one — if amounts change, update both the amount here
+  // AND swap in a new fixed-price link to match.
+  presetAmounts: [
+    { amount: 50, url: "https://donate.stripe.com/test_28EaEYfm1d1W3602Ph8bS02" },
+    { amount: 200, url: "https://donate.stripe.com/test_5kQ14o5Lr7HC9uo4Xp8bS03" },
+    { amount: 500, url: "https://donate.stripe.com/test_fZu14ofm1ge8gWQgG78bS04" },
+  ],
   currencySymbol: "$",
   currencyCode: "USD", // Switched from GBP to USD 2026-09-10 per request — new Payment Link created in USD
 
