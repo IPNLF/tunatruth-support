@@ -224,19 +224,23 @@ replaced before this page is genuinely launch-ready. Locations reference
   `thank-you.html` still needs setting in the Stripe dashboard now that
   a real URL exists (see below), and IPNLF still needs to confirm the
   receiving entity for anything live.
-- **Netlify deployment** — **done.** Live at
-  https://tunatruthdonation.netlify.app/, connected to this GitHub repo
-  (pushes redeploy automatically). Verified 2026-09-07: both `index.html`
-  and `thank-you.html` load correctly on the live URL with no console
-  errors.
-- ~~Final domain~~ — **done.** `SITE_CONFIG.canonicalUrl`, the
+- ~~Netlify deployment~~ — superseded. Moved to GitHub Pages
+  2026-09-08 (free, no credit/deploy-limit concerns for a static site;
+  see the "Move hosting..." commit), then to a custom domain below.
+  The old `tunatruthdonation.netlify.app` site is stale and should be
+  left to lapse rather than used.
+- ~~Final domain~~ — **done.** Live at **https://donate.tunatruth.com/**
+  since 2026-09-10 — a subdomain of the film's own `tunatruth.com`
+  (DNS added via the same Wix account that manages the main
+  TunaTruth site; `ipnlf.org`'s DNS is managed elsewhere and wasn't
+  reachable in time, so this was the fastest real option). Backed by
+  GitHub Pages under `github.com/IPNLF/tunatruth-support`, with a
+  `CNAME` file in the repo root and the custom domain + HTTPS
+  enforcement set in the Pages API. `SITE_CONFIG.canonicalUrl`, the
   `og:url`/`og:image` meta tags in `index.html`, and
-  `scripts/generate_qr.py`'s default all point at
-  `https://tunatruthdonation.netlify.app/`, and the QR asset
-  (`assets/qr/tunatruth-donate-qr.png`) has been regenerated against it.
-  If the domain changes again later (e.g. a branded domain replaces the
-  Netlify subdomain), update all three in the same pass and re-run the
-  QR script again.
+  `scripts/generate_qr.py`'s default all point at this URL, and the QR
+  asset has been regenerated against it. Verified 2026-09-10: loads
+  over HTTPS with no console errors.
 
 ## Known / Assumption / Recommendation
 
