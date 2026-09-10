@@ -116,7 +116,7 @@ const TT = (() => {
     return `<section class="tt-section tt-section--soft" id="share">
       <div class="tt-container tt-share">
         <h2 class="tt-share__title">Help the film travel further</h2>
-        <p class="tt-share__body">Know someone who should see ${cfg.filmName}? Share the campaign and help us reach the next audience.</p>
+        <p class="tt-share__body">Know someone who should see ${cfg.filmName}? Share the campaign and help its message and impact reach further.</p>
         <div class="tt-share__actions">
           <button type="button" class="tt-btn-secondary" data-role="copy-link">Copy link</button>
           <a class="tt-btn-secondary" data-role="share-email" href="#">Share by email</a>
