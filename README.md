@@ -79,48 +79,55 @@ still being decided. To keep that reversible:
      Payment Link's settings: a real test payment landed on our actual
      thank-you page (`tunatruthdonation.netlify.app/thank-you.html`),
      not Stripe's generic confirmation.
-3. **Live Stripe account configured** — a live Payment Link exists,
-   created inside the Stripe account of the entity that legally receives
-   the funds (not a personal account). *(Not started — depends on IPNLF
-   confirming that entity.)*
+3. **Live Stripe account configured** — **done, 2026-09-10.** IPNLF's
+   own Stripe account is activated (business verification + real bank
+   account added by finance) and all four live Payment Links are wired
+   into `config.js`. Spot-checked each of the four by opening them
+   directly (not paying): correct business name "IPNLF" (no Sandbox
+   badge), correct amount, correct product name on all four.
 4. **Live payment flow verified** — a real transaction has actually been
-   run through the live link and confirmed end to end. *(Not started.)*
+   run through a live link, with real money, and confirmed end to end
+   (including the redirect). *(Not done yet — deliberately not run as
+   part of this pass; a real charge needs your explicit go-ahead, not
+   something to do as a "test." See "Next step" below.)*
 
-`SITE_CONFIG.stripeMode` in `config.js` is a human-readable flag (not
-used by any code logic) — currently `"test-verified"`, reflecting state
-2 above, now fully confirmed. Per instruction, this pass deliberately
-did **not** touch live mode or any personal bank account. States 3–4
-(live account, live flow) remain untouched, waiting on IPNLF confirming
-the receiving entity.
+`SITE_CONFIG.stripeMode` in `config.js` is currently `"live-unverified"`
+— live links are in place and spot-checked, but state 4 above hasn't
+happened yet. Don't treat this page as launch-ready until it has.
 
-**Two other things the real Sandbox checkout surfaced, not previously
-known:**
-- **Currency is GBP, not USD.** The Payment Link charges in £. I've
-  updated `config.js` (`currencySymbol`/`currencyCode`) and the on-page
-  preset buttons to match — they now show £25/£50/£100. If GBP isn't
-  actually the intended settlement currency, this needs correcting at
-  the Stripe Product level, not just in our config.
+**Next step:** run one small real donation (an actual card, a few
+dollars) through one of the live links, confirm it appears in Stripe's
+Dashboard, confirm the redirect lands on `donate.tunatruth.com/thank-you.html`,
+and check the automatic receipt email arrives correctly. Once done,
+flip `stripeMode` to `"live"`.
+
+- ~~Currency was GBP~~ — **switched to USD 2026-09-10** per request.
+  `currencySymbol`/`currencyCode` and all four Payment Links now use
+  USD throughout.
 - ~~Product name in Stripe was "Support Tuna Truth", missing "The"~~ —
   **fixed**, now reads "Support The Tuna Truth" in the live checkout.
-- Klarna and Revolut Pay are both offered as payment methods alongside
-  card, in addition to card — Stripe's account-level default payment
-  methods, not something this page's code controls. Worth a quick look
-  at whether "pay later" via Klarna is a fit for a donation (not wrong,
-  just worth a deliberate yes/no rather than leaving Stripe's default).
+- Klarna and Revolut Pay are offered as payment methods alongside card
+  — Stripe's account-level default, not something this page's code
+  controls. Worth a deliberate yes/no on whether "pay later" via Klarna
+  fits a donation, rather than leaving Stripe's default as-is.
+- The Stripe product catalogue briefly had **two accidental duplicate
+  "Support the Tuna Truth" products** (empty, $0.00, no real price)
+  alongside the real one — flagged 2026-09-10, should be archived in
+  Stripe if not already.
 
-## Payment flow — how the Stripe link works here
+## Payment flow — how the Stripe links work here
 
-**Recommendation, not yet confirmed with you:** rather than one Payment
-Link per preset amount (four links to maintain, four places that can go
-stale), this uses **one Payment Link** with Stripe's "customer chooses
-the price" donation-price feature. The preset buttons on this page are a
-visual nudge (they highlight a suggested amount) but the actual amount is
-entered/confirmed on Stripe's own hosted page, which supports arbitrary
-donor-chosen amounts with a minimum you set. This is simpler to maintain
-and is exactly the workflow Stripe designed for donations. If you'd
-rather each preset amount charge an exact fixed price with no adjustment,
-say so — that needs one Payment Link per amount instead, which is more
-setup and more to keep in sync, but is easy to switch to.
+**Switched 2026-09-10 from one flexible link to four:** originally this
+used a single "customer chooses the price" link for every amount, with
+the preset buttons as a visual-only nudge. Feedback was that selecting
+an amount should actually carry through to Stripe — so now there are
+**four live Payment Links**, one fixed-price link per preset amount
+($50/$200/$500) plus the original flexible link kept for "Other".
+`presetAmounts` in `config.js` is an array of `{amount, url}` pairs; the
+Donate button's `href` updates on click via `initInteractions()` in
+`components.js`. Trade-off, deliberately accepted: four links to keep in
+sync instead of one — changing an amount means updating both the number
+here and creating a matching new Payment Link in Stripe.
 
 **To wire up the real link:**
 1. In the Stripe account **belonging to the legal entity receiving the
