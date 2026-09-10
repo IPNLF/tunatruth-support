@@ -38,7 +38,7 @@ const SITE_CONFIG = {
   // --- Preset donation amounts (provisional — see README) -------
   // Illustrative only. Not tied to any confirmed impact claim.
   // Replace once IPNLF supplies real suggested amounts.
-  presetAmounts: [25, 50, 100],
+  presetAmounts: [50, 200, 500],
   currencySymbol: "£",
   currencyCode: "GBP", // Confirmed 2026-09-07: the actual Stripe Payment Link charges in GBP
 
