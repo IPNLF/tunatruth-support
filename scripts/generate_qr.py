@@ -12,7 +12,7 @@ Usage:
 import sys
 import qrcode
 
-DEFAULT_URL = "https://ipnlf.github.io/tunatruth-support/"
+DEFAULT_URL = "https://donate.tunatruth.com/"
 
 def main():
     url = sys.argv[1] if len(sys.argv) > 1 else DEFAULT_URL

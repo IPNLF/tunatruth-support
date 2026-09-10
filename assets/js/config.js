@@ -56,10 +56,11 @@ const SITE_CONFIG = {
   // Used for Open Graph tags and the QR code. Update once a final
   // domain (custom or GitHub Pages URL) is chosen, then regenerate the
   // QR asset with scripts/generate_qr.py. Moved off Netlify 2026-09-08
-  // to GitHub Pages (free, no credit/deploy-limit concerns for a
-  // static site) — update again if a tunatruth.com/ipnlf.org subdomain
-  // becomes available.
-  canonicalUrl: "https://ipnlf.github.io/tunatruth-support/",
+  // to GitHub Pages, then onto this custom subdomain 2026-09-10 (DNS
+  // for tunatruth.com is managed via the same Wix account as the main
+  // site; ipnlf.org's DNS is managed elsewhere, so this subdomain of
+  // the film's own domain was the fastest real option).
+  canonicalUrl: "https://donate.tunatruth.com/",
 
   // --- Naming -------------------------------------------------------
   // Centralised so "The Tuna Truth" is the only form used in prose
