@@ -27,20 +27,21 @@ const SITE_CONFIG = {
   //                     set this until IPNLF has confirmed that entity.
   stripeMode: "test-verified",
 
-  // TEST-mode Payment Link (supplied 2026-09-07). Do NOT replace this
-  // with a live link until IPNLF has confirmed the entity that legally
-  // receives funds — a live link must be created inside THAT entity's
-  // own Stripe account, not a personal one. That one URL is the only
-  // thing that needs to change between test mode, live mode, or a
-  // future provider swap.
-  stripePaymentLinkUrl: "https://buy.stripe.com/test_dRmdRa4Hn5zufSMgG78bS00",
+  // TEST-mode Payment Link (USD version supplied 2026-09-10, replacing
+  // the earlier GBP test link). Do NOT replace this with a live link
+  // until IPNLF has confirmed the entity that legally receives funds —
+  // a live link must be created inside THAT entity's own Stripe
+  // account, not a personal one. That one URL is the only thing that
+  // needs to change between test mode, live mode, or a future provider
+  // swap.
+  stripePaymentLinkUrl: "https://buy.stripe.com/test_28E9AUgq56DygWQ61t8bS01",
 
   // --- Preset donation amounts (provisional — see README) -------
   // Illustrative only. Not tied to any confirmed impact claim.
   // Replace once IPNLF supplies real suggested amounts.
   presetAmounts: [50, 200, 500],
-  currencySymbol: "£",
-  currencyCode: "GBP", // Confirmed 2026-09-07: the actual Stripe Payment Link charges in GBP
+  currencySymbol: "$",
+  currencyCode: "USD", // Switched from GBP to USD 2026-09-10 per request — new Payment Link created in USD
 
   // --- Brand hierarchy -------------------------------------------
   // "primary" gets top billing (first lock-up, larger lock-up in the
