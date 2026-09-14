@@ -143,14 +143,16 @@ const TT = (() => {
         <!-- Confirmed 2026-09-08 against Jackson Wild's own 2026 Media Awards
              page (jacksonwild.org/2026-media-awards) and the Human Rights at
              Sea article on Sunline Films — Onscreen Personality finalists are
-             Attenborough, Cumberbatch, Will Smith and Serena Appleby. Kept to
-             one plain, attributable claim ("finalist") rather than an
-             unsourced "Oscars of nature film" comparison. -->
-        <p class="tt-credibility__eyebrow">Jackson Wild</p>
-        <p class="tt-credibility__award-line">
+             Attenborough, Cumberbatch, Will Smith and Serena Appleby. The
+             "Oscars of nature filmmaking" framing (2026-09-14 copy) is
+             independently used by other outlets/finalists describing Jackson
+             Wild (e.g. thepaperbear.org, africa.com), not just asserted here. -->
+        <p class="tt-credibility__eyebrow">
           <img class="tt-credibility__award-mark" src="assets/img/jackson-wild-logo.png" alt="Jackson Wild" loading="lazy">
-          <span>The film has been nominated in the Onscreen Personality category, with Serena Appleby shortlisted alongside Sir David Attenborough, Benedict Cumberbatch and Will Smith.</span>
+          Jackson Wild
         </p>
+        <p>The Tuna Truth has been shortlisted as a finalist for a Jackson Wild Media Award. The awards are nature filmmaking's equivalent of the Oscars® and highlight the most impactful, innovative, and inspiring storytelling in the space.</p>
+        <p>The film has been nominated in the Onscreen Personality category alongside Sir David Attenborough, Benedict Cumberbatch and Will Smith.</p>
 
         <div class="tt-credibility__links">
           <a href="https://www.tunatruth.com/" target="_blank" rel="noopener">Find out more →</a>

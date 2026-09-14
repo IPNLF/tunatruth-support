@@ -273,24 +273,20 @@ a { color: var(--text-link); }
   font-size: var(--fs-body);
   line-height: var(--lh-body);
 }
-.tt-credibility__award-line {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-2);
-}
-.tt-credibility__award-line strong { color: var(--text-strong); }
 .tt-credibility__award-mark {
-  height: 18px;
+  height: 16px;
   width: auto;
   border-radius: 3px;
   flex-shrink: 0;
-  margin-top: 3px;
 }
 .tt-credibility__links { display: flex; gap: var(--space-4); margin-top: var(--space-1); flex-wrap: wrap; font-size: var(--fs-body-sm); }
 /* Small label, same typographic language as the hero eyebrow (just
    re-toned for a light background) — not a new decorative pattern. */
 .tt-credibility p.tt-credibility__eyebrow {
-  margin: 0 0 var(--space-1);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  margin: 0 0 var(--space-2);
   color: var(--text-muted);
   font-size: var(--fs-caption);
   font-weight: 700;
