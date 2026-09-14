@@ -149,7 +149,7 @@ const TT = (() => {
         <p class="tt-credibility__eyebrow">Jackson Wild</p>
         <p class="tt-credibility__award-line">
           <img class="tt-credibility__award-mark" src="assets/img/jackson-wild-logo.png" alt="Jackson Wild" loading="lazy">
-          <span><strong>Jackson Wild Award finalist</strong> — Serena Appleby was named a finalist in the Onscreen Personality category alongside Sir David Attenborough, Benedict Cumberbatch and Will Smith.</span>
+          <span>The film has been nominated in the Onscreen Personality category, with Serena Appleby shortlisted alongside Sir David Attenborough, Benedict Cumberbatch and Will Smith.</span>
         </p>
 
         <div class="tt-credibility__links">
