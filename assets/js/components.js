@@ -128,11 +128,16 @@ const TT = (() => {
   // ---- supporting sections (below the fold) --------------------
 
   // ---- PROTOTYPE (2026-09-21) — mockup A: reward-tier card grid ----
-  // Fills the white space right under the hero with the same reward
-  // copy already used in the donate panel's reveal-on-select line, so
-  // it's not new/unconfirmed content — just made visible without
-  // requiring a click first. Not confirmed for real use; see
-  // config.js rewardTiers.
+  // Fills white space with the same reward copy already used in the
+  // donate panel's reveal-on-select line, so it's not new/unconfirmed
+  // content — just made visible without requiring a click first. Not
+  // confirmed for real use; see config.js rewardTiers.
+  //
+  // Placed AFTER whySupportMatters() in index.html deliberately (see
+  // 2026-09-21 review) — putting the reward pitch before the mission
+  // case read as transactional-first ("here's what you get") ahead of
+  // the reason to give at all. Mission copy now leads, rewards
+  // reinforce it rather than compete with it.
   function rewardsSection() {
     if (!cfg.rewardTiers || !cfg.rewardTiers.length) return "";
 
