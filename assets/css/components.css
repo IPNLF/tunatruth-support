@@ -109,6 +109,12 @@ a { color: var(--text-link); }
   .tt-donate-panel__eyebrow { margin-bottom: var(--space-2); }
   .tt-amounts { margin-bottom: var(--space-3); }
   .tt-donate-panel__trust { margin-top: var(--space-2); }
+  /* PROTOTYPE elements — tightened so the CTA still clears the fold
+     on common phones with both new elements present. */
+  .tt-progress { margin-bottom: var(--space-2); }
+  .tt-progress__stats { margin-bottom: var(--space-1); }
+  .tt-progress__meta { display: none; } /* secondary info; cut on mobile to reclaim space */
+  .tt-donate-panel__reward { padding: var(--space-1) var(--space-2); margin-bottom: var(--space-2); }
 }
 @media (min-width: 860px) {
   .tt-hero__grid { grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: var(--space-8); }
@@ -145,6 +151,37 @@ a { color: var(--text-link); }
   font-weight: 700;
   font-size: var(--fs-body);
 }
+/* ---- PROTOTYPE (2026-09-21 fork): fundraising progress bar ----
+   Manually updated, not live-linked to Stripe — see config.js. */
+.tt-progress { margin: 0 0 var(--space-4); }
+.tt-progress__stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-body-sm);
+}
+.tt-progress__raised { color: var(--ipnlf-white); font-weight: 700; }
+.tt-progress__goal { color: var(--text-on-dark-soft); }
+.tt-progress__track {
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+.tt-progress__fill {
+  height: 100%;
+  background: var(--ipnlf-gold);
+  border-radius: var(--radius-pill);
+  transition: width 0.3s ease;
+}
+.tt-progress__meta {
+  margin: var(--space-1) 0 0;
+  font-size: var(--fs-caption);
+  color: var(--text-on-dark-soft);
+}
+
 .tt-amounts {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -168,6 +205,19 @@ a { color: var(--text-link); }
   background: var(--ipnlf-gold);
   border-color: var(--ipnlf-gold);
   color: var(--cta-text);
+}
+/* ---- PROTOTYPE (2026-09-21 fork): supporter reward reveal ----
+   Not confirmed — see config.js rewardTiers. Understated on purpose,
+   per the brief's "amount stays primary" preference: one small line,
+   not a table or badge, so it doesn't compete with the CTA. */
+.tt-donate-panel__reward {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border: 1px dashed var(--border-on-dark);
+  border-radius: var(--radius-sm);
+  color: var(--text-on-dark-soft);
+  font-size: var(--fs-caption);
+  text-align: center;
 }
 .tt-cta {
   display: block;

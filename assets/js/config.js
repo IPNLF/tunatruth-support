@@ -83,4 +83,40 @@ const SITE_CONFIG = {
 
   // --- Share -------------------------------------------------------
   shareText: "Support The Tuna Truth — a documentary backed by IPNLF.",
+
+  // ================================================================
+  // PROTOTYPE FEATURES (2026-09-21 fork) — feasibility/design review
+  // only. Nothing below this line should reach the live site until
+  // explicitly confirmed and merged back into master deliberately.
+  // ================================================================
+
+  // --- Fundraising progress bar (PROTOTYPE) ------------------------
+  // Manually updated, not live-linked to Stripe. We looked at
+  // automating this before: Stripe Payment Links have no public
+  // "amount raised so far" endpoint, so showing a real-time total
+  // would need a small backend polling the Stripe API and caching a
+  // number for the page to read — real infrastructure, not a config
+  // edit. For a short campaign, hand-updating `raisedAmount` here
+  // (checking Stripe's Dashboard periodically) is the pragmatic
+  // trade-off — flagged explicitly so it's a deliberate choice, not
+  // an oversight.
+  fundraisingProgress: {
+    enabled: true,
+    raisedAmount: 0, // PLACEHOLDER — update by hand as donations come in
+    goalAmount: 10000, // PLACEHOLDER — needs a real confirmed target from IPNLF, do not treat as final
+    lastUpdatedLabel: "Last updated 21 Sept 2026", // update alongside raisedAmount so it's never silently stale
+  },
+
+  // --- Supporter reward tiers (PROTOTYPE, not confirmed) -----------
+  // Index-matched to presetAmounts above (rewardTiers[0] describes
+  // presetAmounts[0]'s tier, and so on). "Other" intentionally has no
+  // reward line. ALL copy here is placeholder for design/feasibility
+  // review — per the brief's "do not invent fulfilment promises,"
+  // none of this should be presented to real donors as an actual
+  // commitment until IPNLF has confirmed real rewards.
+  rewardTiers: [
+    "Name in the film's closing credits (provisional)",
+    "Name in credits + a piece of campaign merchandise (provisional)",
+    "Name in credits + merchandise + a community screening hosting kit (provisional)",
+  ],
 };

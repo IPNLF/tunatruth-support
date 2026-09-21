@@ -54,20 +54,45 @@ const TT = (() => {
 
   function amountPicker() {
     const buttons = cfg.presetAmounts.map((preset, i) => `
-      <button type="button" class="tt-amount ${i === DEFAULT_PRESET_INDEX ? "is-selected" : ""}" data-amount="${preset.amount}" data-url="${preset.url}">
+      <button type="button" class="tt-amount ${i === DEFAULT_PRESET_INDEX ? "is-selected" : ""}" data-amount="${preset.amount}" data-url="${preset.url}" data-reward="${(cfg.rewardTiers && cfg.rewardTiers[i]) || ""}">
         ${cfg.currencySymbol}${preset.amount}
       </button>`).join("");
     return `<div class="tt-amounts" role="group" aria-label="Choose a donation amount">
       ${buttons}
-      <button type="button" class="tt-amount tt-amount--other" data-amount="other" data-url="${cfg.stripePaymentLinkUrl}">Other</button>
+      <button type="button" class="tt-amount tt-amount--other" data-amount="other" data-url="${cfg.stripePaymentLinkUrl}" data-reward="">Other</button>
+    </div>`;
+  }
+
+  // ---- PROTOTYPE (2026-09-21 fork) — fundraising progress bar ------
+  // Manually updated, not live-linked to Stripe — see config.js
+  // fundraisingProgress for why. Numbers are placeholders; the goal
+  // in particular must not be treated as a real, confirmed target.
+  function fundraisingProgressBar() {
+    const p = cfg.fundraisingProgress;
+    if (!p || !p.enabled) return "";
+    const pct = Math.max(0, Math.min(100, Math.round((p.raisedAmount / p.goalAmount) * 100)));
+    return `<!-- PROTOTYPE — manually-updated progress, not live-linked to Stripe; goalAmount is a placeholder, not a confirmed target -->
+    <div class="tt-progress">
+      <div class="tt-progress__stats">
+        <span class="tt-progress__raised">${cfg.currencySymbol}${p.raisedAmount.toLocaleString()} raised</span>
+        <span class="tt-progress__goal">of ${cfg.currencySymbol}${p.goalAmount.toLocaleString()} goal</span>
+      </div>
+      <div class="tt-progress__track" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Fundraising progress">
+        <div class="tt-progress__fill" style="width:${pct}%"></div>
+      </div>
+      <p class="tt-progress__meta">${p.lastUpdatedLabel}</p>
     </div>`;
   }
 
   function donatePanel() {
     const defaultUrl = cfg.presetAmounts[DEFAULT_PRESET_INDEX].url;
+    const defaultReward = (cfg.rewardTiers && cfg.rewardTiers[DEFAULT_PRESET_INDEX]) || "";
     return `<div class="tt-donate-panel">
       <p class="tt-donate-panel__eyebrow">Support the documentary</p>
+      ${fundraisingProgressBar()}
       ${amountPicker()}
+      <!-- PROTOTYPE — supporter reward tiers, not confirmed; see config.js rewardTiers -->
+      <p class="tt-donate-panel__reward" data-role="reward-text" ${defaultReward ? "" : "hidden"}>${defaultReward}</p>
       <a class="tt-cta" href="${defaultUrl}" data-role="donate-cta">
         Donate now
       </a>
@@ -186,6 +211,7 @@ const TT = (() => {
   function initInteractions() {
     const amountButtons = document.querySelectorAll(".tt-amount");
     const donateCta = document.querySelector('[data-role="donate-cta"]');
+    const rewardText = document.querySelector('[data-role="reward-text"]');
     amountButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         amountButtons.forEach((b) => b.classList.remove("is-selected"));
@@ -195,6 +221,14 @@ const TT = (() => {
         // rather than always landing on one link's default amount.
         if (donateCta && btn.dataset.url) {
           donateCta.href = btn.dataset.url;
+        }
+        // PROTOTYPE — reward tier reveal, not confirmed (see config.js
+        // rewardTiers). "Other" and any preset without a mapped reward
+        // just hides the line rather than showing something empty.
+        if (rewardText) {
+          const reward = btn.dataset.reward || "";
+          rewardText.textContent = reward;
+          rewardText.hidden = !reward;
         }
       });
     });
