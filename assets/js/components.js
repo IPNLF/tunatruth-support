@@ -91,9 +91,16 @@ const TT = (() => {
       ${amountPicker()}
       <!-- PROTOTYPE — supporter reward tiers, not confirmed; see config.js rewardTiers -->
       <p class="tt-donate-panel__reward" data-role="reward-text" ${defaultReward ? "" : "hidden"}>${defaultReward}</p>
-      <a class="tt-cta" href="${defaultUrl}" data-role="donate-cta">
-        Donate now
-      </a>
+      <!-- PROTOTYPE (2026-09-21) — small reward callout on the CTA
+           itself, floated as a separate idea in review: reinforces the
+           reward right at the point of action rather than only above
+           it. Deliberately tiny/one line, not a second competing CTA. -->
+      <div class="tt-cta-wrap">
+        <a class="tt-cta" href="${defaultUrl}" data-role="donate-cta">
+          Donate now
+        </a>
+        <span class="tt-cta__badge" data-role="cta-badge" ${defaultReward ? "" : "hidden"}>+ ${defaultReward}</span>
+      </div>
       <p class="tt-donate-panel__trust">
         <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Zm-1 14.59-4.3-4.3 1.42-1.41L11 12.76l5.88-5.88 1.41 1.41L11 15.59Z"/></svg>
         Secure payment via Stripe · presented by IPNLF
@@ -127,76 +134,53 @@ const TT = (() => {
 
   // ---- supporting sections (below the fold) --------------------
 
-  // ---- PROTOTYPE (2026-09-21) — mockup A: reward-tier card grid ----
-  // Fills white space with the same reward copy already used in the
-  // donate panel's reveal-on-select line, so it's not new/unconfirmed
-  // content — just made visible without requiring a click first. Not
-  // confirmed for real use; see config.js rewardTiers.
-  //
-  // Placed AFTER whySupportMatters() in index.html deliberately (see
-  // 2026-09-21 review) — putting the reward pitch before the mission
-  // case read as transactional-first ("here's what you get") ahead of
-  // the reason to give at all. Mission copy now leads, rewards
-  // reinforce it rather than compete with it.
-  function rewardsSection() {
-    if (!cfg.rewardTiers || !cfg.rewardTiers.length) return "";
+  // ---- PROTOTYPE (2026-09-21) — mockup C: mission copy + rewards,
+  // merged into one section ----
+  // Superseded mockups A (full-width reward card grid) and B (compact
+  // strip) below the mission copy: both put "why give" and "what you
+  // get" in separate sections, which either buried the rewards too far
+  // down or, when reordered, still competed for top billing. This
+  // merges them side by side in one section directly under the hero —
+  // visible without scrolling past the hero, but "why" still reads
+  // first (left column, larger heading) so it doesn't lead with the
+  // transactional pitch. Two low-key layout variants behind
+  // MERGED_VARIANT below; neither uses cards/badges, to cut the
+  // colour/visual overload flagged in review.
+  function whyAndRewardsSection() {
+    const reward = (i) => (cfg.rewardTiers && cfg.rewardTiers[i]) || "";
+    const rewardItemsC1 = cfg.presetAmounts.map((preset, i) => reward(i) ? `
+      <li><span class="reward-amount">${cfg.currencySymbol}${preset.amount}</span><span class="reward-text">${reward(i)}</span></li>` : "").join("");
+    const rewardItemsC2 = cfg.presetAmounts.map((preset, i) => reward(i) ? `
+      <li><span class="reward-amount">${cfg.currencySymbol}${preset.amount}</span> — ${reward(i)}</li>` : "").join("");
 
-    // ---- mockup A: card grid (full section, own heading) ----
-    const cards = cfg.presetAmounts.map((preset, i) => {
-      const reward = cfg.rewardTiers[i];
-      if (!reward) return "";
-      return `<div class="tt-reward-card">
-        <p class="tt-reward-card__amount">${cfg.currencySymbol}${preset.amount}</p>
-        <p class="tt-card__title">${reward}</p>
+    const whyColumn = `<div class="tt-merged__why">
+        <h2>Why your support matters</h2>
+        <!-- HOLDING COPY — provisional until production confirms specific use of funds -->
+        <p>The film is entering the next stage of its journey. Further support will help it reach wider audiences through screenings, distribution and engagement.</p>
+        <a href="#credibility">About the film →</a>
       </div>`;
-    }).join("");
-    const mockupA = `<!-- PROTOTYPE — mockup A: reward-tier grid, not confirmed -->
-    <section class="tt-section tt-rewards" id="rewards">
+
+    const rewardsColumn = cfg.rewardTiers && cfg.rewardTiers.length
+      ? `<!-- PROTOTYPE — reward tiers, not confirmed; see config.js rewardTiers -->
+      <div class="tt-merged__rewards">
+        <h2>What you'll get</h2>
+        <ul class="reward-list">${MERGED_VARIANT === "C2" ? rewardItemsC2 : rewardItemsC1}</ul>
+      </div>`
+      : "";
+
+    return `<section class="tt-section tt-merged tt-merged--${MERGED_VARIANT.toLowerCase()}" id="why">
       <div class="tt-container">
-        <h2 class="tt-why__title">What your support unlocks</h2>
-        <p class="tt-why__body">Every gift helps ${cfg.filmName} reach further — these are our way of saying thank you.</p>
-        <div class="tt-section__grid">
-          ${cards}
+        <div class="tt-merged__grid">
+          ${whyColumn}
+          ${rewardsColumn}
         </div>
       </div>
     </section>`;
-
-    // ---- mockup B: compact strip, sits right under the hero ----
-    const items = cfg.presetAmounts.map((preset, i) => {
-      const reward = cfg.rewardTiers[i];
-      if (!reward) return "";
-      return `<li class="tt-reward-strip__item">
-        <span class="tt-reward-strip__amount">${cfg.currencySymbol}${preset.amount}</span>
-        <span class="tt-reward-strip__reward">${reward}</span>
-      </li>`;
-    }).join("");
-    const mockupB = `<!-- PROTOTYPE — mockup B: compact reward strip, not confirmed -->
-    <section class="tt-section--tight tt-reward-strip-section" id="rewards">
-      <div class="tt-container">
-        <p class="tt-reward-strip__eyebrow">What your support unlocks</p>
-        <ul class="tt-reward-strip">
-          ${items}
-        </ul>
-      </div>
-    </section>`;
-
-    return SHOW_MOCKUP === "B" ? mockupB : mockupA;
   }
-  const SHOW_MOCKUP = "A"; // PROTOTYPE toggle — "A" (card grid) or "B" (compact strip); switch for review
-
-  // Deliberately one short block, not three — the donor only needs
-  // reassurance that support has a clear purpose here; deeper subject
-  // matter lives lower down in credibility(), not competing with this.
-  function whySupportMatters() {
-    return `<section class="tt-section tt-why" id="why">
-      <div class="tt-container tt-why__inner">
-        <h2 class="tt-why__title">Why your support matters</h2>
-        <!-- HOLDING COPY — provisional until production confirms specific use of funds -->
-        <p class="tt-why__body">The film is entering the next stage of its journey. Further support will help it reach wider audiences through screenings, distribution and engagement.</p>
-        <a class="tt-why__link" href="#credibility">About the film →</a>
-      </div>
-    </section>`;
-  }
+  // PROTOTYPE toggle — "C1" (even split, hairline divider, plain
+  // reward list) or "C2" (asymmetric split, teal accents on amounts
+  // only); switch for review.
+  const MERGED_VARIANT = "C1";
 
   function shareBlock() {
     return `<section class="tt-section tt-section--soft" id="share">
@@ -273,6 +257,7 @@ const TT = (() => {
     const amountButtons = document.querySelectorAll(".tt-amount");
     const donateCta = document.querySelector('[data-role="donate-cta"]');
     const rewardText = document.querySelector('[data-role="reward-text"]');
+    const ctaBadge = document.querySelector('[data-role="cta-badge"]');
     amountButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         amountButtons.forEach((b) => b.classList.remove("is-selected"));
@@ -290,6 +275,11 @@ const TT = (() => {
           const reward = btn.dataset.reward || "";
           rewardText.textContent = reward;
           rewardText.hidden = !reward;
+        }
+        if (ctaBadge) {
+          const reward = btn.dataset.reward || "";
+          ctaBadge.textContent = reward ? `+ ${reward}` : "";
+          ctaBadge.hidden = !reward;
         }
       });
     });
@@ -319,7 +309,7 @@ const TT = (() => {
   }
 
   return {
-    header, heroDonate, rewardsSection, whySupportMatters, shareBlock, credibility, footer,
+    header, heroDonate, whyAndRewardsSection, shareBlock, credibility, footer,
     initInteractions,
   };
 })();
