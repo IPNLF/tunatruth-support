@@ -194,11 +194,14 @@ a { color: var(--text-link); }
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
 }
-.tt-amount:hover { border-color: var(--ipnlf-gold); }
+.tt-amount:hover { border-color: var(--tunatruth-teal); }
+/* Selected-amount uses the wordmark's teal, not gold — gold is kept
+   for the Donate CTA alone, so it stays the one unmistakably
+   actionable colour on the page rather than repeating on this too. */
 .tt-amount.is-selected {
-  background: var(--ipnlf-gold);
-  border-color: var(--ipnlf-gold);
-  color: var(--cta-text);
+  background: var(--tunatruth-teal);
+  border-color: var(--tunatruth-teal);
+  color: var(--ipnlf-ink); /* white failed contrast on this teal (~2:1) — dark ink clears AA */
 }
 /* ---- PROTOTYPE (2026-09-21 fork): supporter reward reveal ----
    Not confirmed — see config.js rewardTiers. Understated on purpose,

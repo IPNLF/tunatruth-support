@@ -17,6 +17,11 @@
   --ipnlf-orange:  #E88C33;
   --ipnlf-gold:    #F6AE2D;
   --ipnlf-teal-deep:  #146E64;
+  /* Sampled directly from the "with Serena Appleby" text baked into
+     tunatruth-logo.png (2026-09-21) — a brighter, more cyan teal than
+     --ipnlf-teal above; kept separate rather than reusing that token
+     so this stays an exact match to the wordmark, not an approximation. */
+  --tunatruth-teal: #10CBB2;
 
   /* ---- Cinematic surface (TunaTruth-specific, campaign feel) ---- */
   --cinema-black:   #0A1416;
