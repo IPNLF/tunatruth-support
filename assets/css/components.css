@@ -298,10 +298,7 @@ a { color: var(--text-link); }
 .tt-merged { padding: 1.75rem 0; }
 .tt-merged__grid { display: grid; gap: var(--space-6); grid-template-columns: 1fr; }
 @media (min-width: 720px) {
-  .tt-merged__grid { grid-template-columns: 1.1fr 0.9fr; }
-}
-@media (min-width: 960px) {
-  .tt-merged__grid { grid-template-columns: 1.1fr 0.8fr 1fr; }
+  .tt-merged__grid { grid-template-columns: 1.4fr 1fr; }
 }
 /* Rewards heading matches the "why" heading exactly (feedback:
    previously smaller/caption-styled, read as less important than it
@@ -371,15 +368,6 @@ a { color: var(--text-link); }
 .reward-info:hover::after, .reward-info:focus-visible::after, .reward-info.is-open::after {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
-}
-
-/* ---- PROTOTYPE (2026-09-21) — illustrative reward image ----
-   Flat SVG illustration, not product photography — see the image's
-   own alt text/in-image captions, which say this directly. */
-.tt-merged__visual { display: flex; align-items: flex-start; justify-content: center; }
-.tt-merged__visual img { width: 100%; max-width: 280px; height: auto; }
-@media (max-width: 719px) {
-  .tt-merged__visual { max-width: 220px; margin: 0 auto; }
 }
 
 /* ---- share ---- */

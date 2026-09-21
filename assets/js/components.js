@@ -187,23 +187,11 @@ const TT = (() => {
       </div>`
       : "";
 
-    // PROTOTYPE (2026-09-21) — illustrative reward image, requested to
-    // sit on the right of the section. Deliberately a flat/line-art
-    // SVG, not product photography — nothing here is real merchandise
-    // or a confirmed credits layout; see the image's own <title> and
-    // in-image captions, which say so directly to anyone who opens it.
-    const rewardImage = cfg.rewardTiers && cfg.rewardTiers.length
-      ? `<div class="tt-merged__visual">
-        <img src="assets/img/reward-mockup.svg" alt="Illustrative mock-up of possible supporter rewards: a tote bag, a stack of flyers and stickers, and a name-in-credits example. Not real merchandise or a confirmed credits layout.">
-      </div>`
-      : "";
-
     return `<section class="tt-section tt-merged" id="why">
       <div class="tt-container">
         <div class="tt-merged__grid">
           ${whyColumn}
           ${rewardsColumn}
-          ${rewardImage}
         </div>
       </div>
     </section>`;
