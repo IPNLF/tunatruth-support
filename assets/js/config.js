@@ -102,9 +102,8 @@ const SITE_CONFIG = {
   // an oversight.
   fundraisingProgress: {
     enabled: true,
-    raisedAmount: 0, // PLACEHOLDER — update by hand as donations come in
+    raisedAmount: 2500, // PLACEHOLDER — set to 25% of goal for screenshot purposes; update by hand as donations come in
     goalAmount: 10000, // PLACEHOLDER — needs a real confirmed target from IPNLF, do not treat as final
-    lastUpdatedLabel: "Last updated 21 Sept 2026", // update alongside raisedAmount so it's never silently stale
   },
 
   // --- Supporter reward tiers (PROTOTYPE, not confirmed) -----------
@@ -113,10 +112,14 @@ const SITE_CONFIG = {
   // reward line. ALL copy here is placeholder for design/feasibility
   // review — per the brief's "do not invent fulfilment promises,"
   // none of this should be presented to real donors as an actual
-  // commitment until IPNLF has confirmed real rewards.
+  // commitment until IPNLF has confirmed real rewards. The "(provisional)"
+  // wording was removed from the visible text per request 2026-09-21 —
+  // still not confirmed, just no longer says so on the page itself; the
+  // dashed border on .tt-donate-panel__reward is the remaining visual
+  // cue that this is provisional, plus this comment and the README.
   rewardTiers: [
-    "Name in the film's closing credits (provisional)",
-    "Name in credits + a piece of campaign merchandise (provisional)",
-    "Name in credits + merchandise + a community screening hosting kit (provisional)",
+    "TunaTruth tote bag",
+    "Screening hosting kit",
+    "Name in credits",
   ],
 };

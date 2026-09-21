@@ -80,7 +80,6 @@ const TT = (() => {
       <div class="tt-progress__track" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Fundraising progress">
         <div class="tt-progress__fill" style="width:${pct}%"></div>
       </div>
-      <p class="tt-progress__meta">${p.lastUpdatedLabel}</p>
     </div>`;
   }
 
@@ -89,7 +88,6 @@ const TT = (() => {
     const defaultReward = (cfg.rewardTiers && cfg.rewardTiers[DEFAULT_PRESET_INDEX]) || "";
     return `<div class="tt-donate-panel">
       <p class="tt-donate-panel__eyebrow">Support the documentary</p>
-      ${fundraisingProgressBar()}
       ${amountPicker()}
       <!-- PROTOTYPE — supporter reward tiers, not confirmed; see config.js rewardTiers -->
       <p class="tt-donate-panel__reward" data-role="reward-text" ${defaultReward ? "" : "hidden"}>${defaultReward}</p>
@@ -109,10 +107,16 @@ const TT = (() => {
         <div class="tt-hero__identity">
           <p class="tt-hero__eyebrow">A documentary supported by IPNLF</p>
           <h1 class="tt-hero__title">${wordmarkTunaTruth("lg")}</h1>
-          <!-- HOLDING COPY — requires IPNLF/production approval before launch -->
+          <!-- PROTOTYPE (2026-09-21) — test: progress bar replacing the
+               holding-copy support line here, to make amount raised more
+               prominent above the fold. Original line preserved below in
+               case this reverts. -->
+          ${fundraisingProgressBar()}
+          <!--
           <p class="tt-hero__support-line">
             Support the next stage of ${cfg.filmName} and help the film reach audiences around the world.
           </p>
+          -->
         </div>
         <div class="tt-hero__panel">
           ${donatePanel()}

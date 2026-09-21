@@ -113,7 +113,6 @@ a { color: var(--text-link); }
      on common phones with both new elements present. */
   .tt-progress { margin-bottom: var(--space-2); }
   .tt-progress__stats { margin-bottom: var(--space-1); }
-  .tt-progress__meta { display: none; } /* secondary info; cut on mobile to reclaim space */
   .tt-donate-panel__reward { padding: var(--space-1) var(--space-2); margin-bottom: var(--space-2); }
 }
 @media (min-width: 860px) {
@@ -175,11 +174,6 @@ a { color: var(--text-link); }
   background: var(--ipnlf-gold);
   border-radius: var(--radius-pill);
   transition: width 0.3s ease;
-}
-.tt-progress__meta {
-  margin: var(--space-1) 0 0;
-  font-size: var(--fs-caption);
-  color: var(--text-on-dark-soft);
 }
 
 .tt-amounts {
