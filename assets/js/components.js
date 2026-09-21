@@ -127,6 +127,58 @@ const TT = (() => {
 
   // ---- supporting sections (below the fold) --------------------
 
+  // ---- PROTOTYPE (2026-09-21) — mockup A: reward-tier card grid ----
+  // Fills the white space right under the hero with the same reward
+  // copy already used in the donate panel's reveal-on-select line, so
+  // it's not new/unconfirmed content — just made visible without
+  // requiring a click first. Not confirmed for real use; see
+  // config.js rewardTiers.
+  function rewardsSection() {
+    if (!cfg.rewardTiers || !cfg.rewardTiers.length) return "";
+
+    // ---- mockup A: card grid (full section, own heading) ----
+    const cards = cfg.presetAmounts.map((preset, i) => {
+      const reward = cfg.rewardTiers[i];
+      if (!reward) return "";
+      return `<div class="tt-reward-card">
+        <p class="tt-reward-card__amount">${cfg.currencySymbol}${preset.amount}</p>
+        <p class="tt-card__title">${reward}</p>
+      </div>`;
+    }).join("");
+    const mockupA = `<!-- PROTOTYPE — mockup A: reward-tier grid, not confirmed -->
+    <section class="tt-section tt-rewards" id="rewards">
+      <div class="tt-container">
+        <h2 class="tt-why__title">What your support unlocks</h2>
+        <p class="tt-why__body">Every gift helps ${cfg.filmName} reach further — these are our way of saying thank you.</p>
+        <div class="tt-section__grid">
+          ${cards}
+        </div>
+      </div>
+    </section>`;
+
+    // ---- mockup B: compact strip, sits right under the hero ----
+    const items = cfg.presetAmounts.map((preset, i) => {
+      const reward = cfg.rewardTiers[i];
+      if (!reward) return "";
+      return `<li class="tt-reward-strip__item">
+        <span class="tt-reward-strip__amount">${cfg.currencySymbol}${preset.amount}</span>
+        <span class="tt-reward-strip__reward">${reward}</span>
+      </li>`;
+    }).join("");
+    const mockupB = `<!-- PROTOTYPE — mockup B: compact reward strip, not confirmed -->
+    <section class="tt-section--tight tt-reward-strip-section" id="rewards">
+      <div class="tt-container">
+        <p class="tt-reward-strip__eyebrow">What your support unlocks</p>
+        <ul class="tt-reward-strip">
+          ${items}
+        </ul>
+      </div>
+    </section>`;
+
+    return SHOW_MOCKUP === "B" ? mockupB : mockupA;
+  }
+  const SHOW_MOCKUP = "A"; // PROTOTYPE toggle — "A" (card grid) or "B" (compact strip); switch for review
+
   // Deliberately one short block, not three — the donor only needs
   // reassurance that support has a clear purpose here; deeper subject
   // matter lives lower down in credibility(), not competing with this.
@@ -262,7 +314,7 @@ const TT = (() => {
   }
 
   return {
-    header, heroDonate, whySupportMatters, shareBlock, credibility, footer,
+    header, heroDonate, rewardsSection, whySupportMatters, shareBlock, credibility, footer,
     initInteractions,
   };
 })();
