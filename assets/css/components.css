@@ -203,19 +203,6 @@ a { color: var(--text-link); }
   border-color: var(--tunatruth-teal);
   color: var(--ipnlf-ink); /* white failed contrast on this teal (~2:1) — dark ink clears AA */
 }
-/* ---- PROTOTYPE (2026-09-21 fork): supporter reward reveal ----
-   Not confirmed — see config.js rewardTiers. Understated on purpose,
-   per the brief's "amount stays primary" preference: one small line,
-   not a table or badge, so it doesn't compete with the CTA. */
-.tt-donate-panel__reward {
-  margin: 0 0 var(--space-3);
-  padding: var(--space-2) var(--space-3);
-  border: 1px dashed var(--border-on-dark);
-  border-radius: var(--radius-sm);
-  color: var(--text-on-dark-soft);
-  font-size: var(--fs-caption);
-  text-align: center;
-}
 .tt-cta {
   display: block;
   width: 100%;
@@ -235,16 +222,37 @@ a { color: var(--text-link); }
 /* ---- PROTOTYPE (2026-09-21) — reward callout on the CTA itself ----
    Sits just below the button, not on top of it, so it never crowds
    the "Donate now" label. Teal (not gold) so it doesn't read as a
-   second, competing call to action. */
+   second, competing call to action. Sized up from the first pass
+   (caption → body, 700 → 800) per feedback that it read too quietly
+   next to the amount it's meant to reinforce. */
 .tt-cta-wrap { position: relative; }
 .tt-cta__badge {
   display: block;
   margin: var(--space-2) 0 0;
   text-align: center;
-  font-size: var(--fs-caption);
-  font-weight: 700;
+  font-size: var(--fs-body);
+  font-weight: 800;
   color: var(--tunatruth-teal);
 }
+.tt-cta__badge--optedout {
+  color: var(--text-on-dark-soft);
+  text-decoration: line-through;
+  font-weight: 700;
+}
+/* ---- PROTOTYPE (2026-09-21) — reward opt-out, UI only ----
+   See the long comment in components.js donatePanel(): this toggles
+   the badge's look only, it doesn't reach Stripe or fulfilment yet. */
+.tt-cta-optout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  margin: var(--space-1) 0 0;
+  font-size: var(--fs-caption);
+  color: var(--text-on-dark-soft);
+  cursor: pointer;
+}
+.tt-cta-optout input { accent-color: var(--tunatruth-teal); }
 .tt-donate-panel__trust {
   display: flex;
   align-items: center;
@@ -280,18 +288,24 @@ a { color: var(--text-link); }
 }
 .tt-card__body { margin: 0; color: var(--text-muted); }
 
-/* ---- PROTOTYPE (2026-09-21) — mockup C: mission copy + rewards,
-   merged into one low-key section (supersedes the separate mockups
-   A/B card-grid and strip sections, and the separate "why matters"
-   section, previously here). Two variants below, picked by
-   MERGED_VARIANT in components.js. Deliberately no cards, no badges,
-   no gold — the point was cutting colour/visual overload. */
+/* ---- PROTOTYPE (2026-09-21) — mockup C2: mission copy + rewards,
+   merged into one low-key section (supersedes mockups A/B and the
+   C1 variant of this one — see components.js). Deliberately no
+   cards, no badges, no gold — the point was cutting colour/visual
+   overload. Mission copy gets more width and reads first; reward
+   amounts pick up a touch of the wordmark teal, nothing else
+   coloured; an illustrative reward image sits on the right. */
 .tt-merged { padding: 1.75rem 0; }
-.tt-merged__grid { display: grid; gap: var(--space-8); grid-template-columns: 1fr; }
+.tt-merged__grid { display: grid; gap: var(--space-6); grid-template-columns: 1fr; }
 @media (min-width: 720px) {
-  .tt-merged--c1 .tt-merged__grid { grid-template-columns: 1fr 1fr; }
-  .tt-merged--c2 .tt-merged__grid { grid-template-columns: 1.4fr 1fr; }
+  .tt-merged__grid { grid-template-columns: 1.1fr 0.9fr; }
 }
+@media (min-width: 960px) {
+  .tt-merged__grid { grid-template-columns: 1.1fr 0.8fr 1fr; }
+}
+/* Rewards heading matches the "why" heading exactly (feedback:
+   previously smaller/caption-styled, read as less important than it
+   should) — both just target h2 here rather than needing two rules. */
 .tt-merged__why h2, .tt-merged__rewards h2 {
   margin: 0 0 var(--space-2);
   font-family: var(--font-display);
@@ -303,43 +317,70 @@ a { color: var(--text-link); }
 .tt-merged__why a { font-size: var(--fs-body-sm); font-weight: 600; text-decoration: none; }
 .tt-merged__why a:hover { text-decoration: underline; }
 
-/* C1 — even columns, hairline divider, reward list stays uncoloured */
-.tt-merged--c1 .tt-merged__rewards {
-  border-top: 1px solid var(--border-subtle);
-  padding-top: var(--space-4);
-}
-@media (min-width: 720px) {
-  .tt-merged--c1 .tt-merged__rewards {
-    border-top: none;
-    border-left: 1px solid var(--border-subtle);
-    padding-top: 0;
-    padding-left: var(--space-8);
-  }
-}
-.tt-merged--c1 .tt-merged__rewards h2 {
-  font-family: var(--font-text);
-  font-size: var(--fs-body);
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-.tt-merged--c1 .reward-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
-.tt-merged--c1 .reward-list li { display: flex; gap: var(--space-2); align-items: baseline; font-size: var(--fs-body-sm); }
-.tt-merged--c1 .reward-amount { font-weight: 700; color: var(--text-strong); min-width: 3em; }
-.tt-merged--c1 .reward-text { color: var(--text-muted); }
+.reward-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.reward-list li { font-size: var(--fs-body-sm); color: var(--text-muted); display: flex; align-items: baseline; gap: var(--space-1); flex-wrap: wrap; }
+.reward-amount { color: var(--tunatruth-teal); font-weight: 700; }
 
-/* C2 — asymmetric split (why gets more width), amounts pick up a
-   touch of the wordmark teal, nothing else coloured */
-.tt-merged--c2 .tt-merged__rewards h2 {
-  font-size: var(--fs-caption);
+/* ---- PROTOTYPE (2026-09-21) — (?) tooltip per reward ----
+   Placeholder content only (config.js rewardDetails is empty) —
+   fill that in per tier rather than styling around it here. Opens
+   on hover/focus for mouse/keyboard, and on click/tap (is-open,
+   toggled in components.js) for touch devices, which don't hover. */
+.reward-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  margin-left: 2px;
+  border-radius: 50%;
+  border: 1px solid var(--border-subtle);
   color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-size: 0.65rem;
+  font-weight: 700;
+  cursor: help;
+  position: relative;
+  flex-shrink: 0;
 }
-.tt-merged--c2 .reward-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
-.tt-merged--c2 .reward-list li { font-size: var(--fs-body-sm); color: var(--text-muted); }
-.tt-merged--c2 .reward-amount { color: var(--tunatruth-teal); font-weight: 700; }
+.reward-info:hover, .reward-info:focus-visible, .reward-info.is-open {
+  border-color: var(--tunatruth-teal);
+  color: var(--tunatruth-teal);
+  outline: none;
+}
+.reward-info::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 6px);
+  transform: translateX(-50%) translateY(4px);
+  min-width: 160px;
+  max-width: 220px;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+  font-size: var(--fs-caption);
+  font-weight: 400;
+  text-align: left;
+  white-space: normal;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s, transform 0.12s;
+  z-index: 5;
+}
+.reward-info:hover::after, .reward-info:focus-visible::after, .reward-info.is-open::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ---- PROTOTYPE (2026-09-21) — illustrative reward image ----
+   Flat SVG illustration, not product photography — see the image's
+   own alt text/in-image captions, which say this directly. */
+.tt-merged__visual { display: flex; align-items: flex-start; justify-content: center; }
+.tt-merged__visual img { width: 100%; max-width: 280px; height: auto; }
+@media (max-width: 719px) {
+  .tt-merged__visual { max-width: 220px; margin: 0 auto; }
+}
 
 /* ---- share ---- */
 .tt-share { text-align: center; max-width: var(--container-narrow); }

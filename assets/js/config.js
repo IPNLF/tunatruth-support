@@ -112,14 +112,25 @@ const SITE_CONFIG = {
   // reward line. ALL copy here is placeholder for design/feasibility
   // review — per the brief's "do not invent fulfilment promises,"
   // none of this should be presented to real donors as an actual
-  // commitment until IPNLF has confirmed real rewards. The "(provisional)"
-  // wording was removed from the visible text per request 2026-09-21 —
-  // still not confirmed, just no longer says so on the page itself; the
-  // dashed border on .tt-donate-panel__reward is the remaining visual
-  // cue that this is provisional, plus this comment and the README.
+  // commitment until IPNLF has confirmed real rewards. The visible
+  // page no longer marks this "(provisional)" — the only remaining
+  // on-page cue is this comment and the README's content-approval
+  // checklist, so don't let this go live without a deliberate check.
   rewardTiers: [
     "TunaTruth tote bag",
     "Screening hosting kit",
     "Name in credits",
+  ],
+
+  // --- Reward tier detail (PROTOTYPE, empty placeholders) -----------
+  // Shown in the hover/focus tooltip on the (?) next to each reward in
+  // whyAndRewardsSection() — index-matched to rewardTiers above. Left
+  // empty deliberately: fill each one in directly here rather than in
+  // components.js, so the tooltip copy lives in the same place as the
+  // rest of the not-yet-confirmed reward content.
+  rewardDetails: [
+    "", // $50 — TunaTruth tote bag
+    "", // $200 — Screening hosting kit
+    "", // $500 — Name in credits
   ],
 };

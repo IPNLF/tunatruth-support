@@ -89,17 +89,29 @@ const TT = (() => {
     return `<div class="tt-donate-panel">
       <p class="tt-donate-panel__eyebrow">Support the documentary</p>
       ${amountPicker()}
-      <!-- PROTOTYPE — supporter reward tiers, not confirmed; see config.js rewardTiers -->
-      <p class="tt-donate-panel__reward" data-role="reward-text" ${defaultReward ? "" : "hidden"}>${defaultReward}</p>
-      <!-- PROTOTYPE (2026-09-21) — small reward callout on the CTA
-           itself, floated as a separate idea in review: reinforces the
-           reward right at the point of action rather than only above
-           it. Deliberately tiny/one line, not a second competing CTA. -->
+      <!-- PROTOTYPE (2026-09-21) — reward callout moved to live only on
+           the CTA itself (below), so it's stated once, not twice
+           (the line that used to sit here, above the button, is gone —
+           see 2026-09-21 review). -->
       <div class="tt-cta-wrap">
         <a class="tt-cta" href="${defaultUrl}" data-role="donate-cta">
           Donate now
         </a>
         <span class="tt-cta__badge" data-role="cta-badge" ${defaultReward ? "" : "hidden"}>+ ${defaultReward}</span>
+        <!-- PROTOTYPE (2026-09-21) — reward opt-out, UI ONLY: this
+             checkbox does not currently reach Stripe or fulfilment.
+             The Payment Link URL is a static link — nothing selected
+             on this page travels with the donor to checkout. Real
+             wiring would mean either (a) Stripe's own "custom fields"
+             on the Payment Link, configured in the Stripe Dashboard,
+             collected at checkout itself, or (b) a backend between
+             this page and Stripe to carry the choice through as
+             metadata. Flagging this here and in the review notes so
+             it isn't mistaken for working end-to-end. -->
+        <label class="tt-cta-optout" ${defaultReward ? "" : "hidden"} data-role="cta-optout">
+          <input type="checkbox" checked data-role="cta-optout-check">
+          Send me this reward
+        </label>
       </div>
       <p class="tt-donate-panel__trust">
         <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Zm-1 14.59-4.3-4.3 1.42-1.41L11 12.76l5.88-5.88 1.41 1.41L11 15.59Z"/></svg>
@@ -134,24 +146,31 @@ const TT = (() => {
 
   // ---- supporting sections (below the fold) --------------------
 
-  // ---- PROTOTYPE (2026-09-21) — mockup C: mission copy + rewards,
+  // ---- PROTOTYPE (2026-09-21) — mockup C2: mission copy + rewards,
   // merged into one section ----
-  // Superseded mockups A (full-width reward card grid) and B (compact
-  // strip) below the mission copy: both put "why give" and "what you
-  // get" in separate sections, which either buried the rewards too far
-  // down or, when reordered, still competed for top billing. This
-  // merges them side by side in one section directly under the hero —
-  // visible without scrolling past the hero, but "why" still reads
-  // first (left column, larger heading) so it doesn't lead with the
-  // transactional pitch. Two low-key layout variants behind
-  // MERGED_VARIANT below; neither uses cards/badges, to cut the
-  // colour/visual overload flagged in review.
+  // Superseded mockups A (full-width reward card grid), B (compact
+  // strip), and C1 (even-column variant of this one): all either
+  // buried the rewards too far down, or put them back in direct
+  // competition with the mission copy. This is the version picked
+  // after review — asymmetric split (mission copy gets more width and
+  // reads first), reward amounts pick up the wordmark teal, nothing
+  // else coloured.
   function whyAndRewardsSection() {
     const reward = (i) => (cfg.rewardTiers && cfg.rewardTiers[i]) || "";
-    const rewardItemsC1 = cfg.presetAmounts.map((preset, i) => reward(i) ? `
-      <li><span class="reward-amount">${cfg.currencySymbol}${preset.amount}</span><span class="reward-text">${reward(i)}</span></li>` : "").join("");
-    const rewardItemsC2 = cfg.presetAmounts.map((preset, i) => reward(i) ? `
-      <li><span class="reward-amount">${cfg.currencySymbol}${preset.amount}</span> — ${reward(i)}</li>` : "").join("");
+    const detail = (i) => (cfg.rewardDetails && cfg.rewardDetails[i]) || "";
+    const rewardItems = cfg.presetAmounts.map((preset, i) => {
+      if (!reward(i)) return "";
+      // PROTOTYPE (2026-09-21) — (?) info affordance per reward, for
+      // adding detail copy later. Tooltip text comes from
+      // config.js rewardDetails (currently empty placeholders) — the
+      // icon still renders with nothing to show yet, so it's obvious
+      // where to fill copy in rather than silently doing nothing.
+      return `
+      <li>
+        <span class="reward-amount">${cfg.currencySymbol}${preset.amount}</span> — ${reward(i)}
+        <span class="reward-info" tabindex="0" role="button" aria-label="More detail about the ${reward(i)} reward" data-tooltip="${detail(i) || "Detail to be added"}">?</span>
+      </li>`;
+    }).join("");
 
     const whyColumn = `<div class="tt-merged__why">
         <h2>Why your support matters</h2>
@@ -164,23 +183,31 @@ const TT = (() => {
       ? `<!-- PROTOTYPE — reward tiers, not confirmed; see config.js rewardTiers -->
       <div class="tt-merged__rewards">
         <h2>What you'll get</h2>
-        <ul class="reward-list">${MERGED_VARIANT === "C2" ? rewardItemsC2 : rewardItemsC1}</ul>
+        <ul class="reward-list">${rewardItems}</ul>
       </div>`
       : "";
 
-    return `<section class="tt-section tt-merged tt-merged--${MERGED_VARIANT.toLowerCase()}" id="why">
+    // PROTOTYPE (2026-09-21) — illustrative reward image, requested to
+    // sit on the right of the section. Deliberately a flat/line-art
+    // SVG, not product photography — nothing here is real merchandise
+    // or a confirmed credits layout; see the image's own <title> and
+    // in-image captions, which say so directly to anyone who opens it.
+    const rewardImage = cfg.rewardTiers && cfg.rewardTiers.length
+      ? `<div class="tt-merged__visual">
+        <img src="assets/img/reward-mockup.svg" alt="Illustrative mock-up of possible supporter rewards: a tote bag, a stack of flyers and stickers, and a name-in-credits example. Not real merchandise or a confirmed credits layout.">
+      </div>`
+      : "";
+
+    return `<section class="tt-section tt-merged" id="why">
       <div class="tt-container">
         <div class="tt-merged__grid">
           ${whyColumn}
           ${rewardsColumn}
+          ${rewardImage}
         </div>
       </div>
     </section>`;
   }
-  // PROTOTYPE toggle — "C1" (even split, hairline divider, plain
-  // reward list) or "C2" (asymmetric split, teal accents on amounts
-  // only); switch for review.
-  const MERGED_VARIANT = "C1";
 
   function shareBlock() {
     return `<section class="tt-section tt-section--soft" id="share">
@@ -256,8 +283,9 @@ const TT = (() => {
   function initInteractions() {
     const amountButtons = document.querySelectorAll(".tt-amount");
     const donateCta = document.querySelector('[data-role="donate-cta"]');
-    const rewardText = document.querySelector('[data-role="reward-text"]');
     const ctaBadge = document.querySelector('[data-role="cta-badge"]');
+    const ctaOptout = document.querySelector('[data-role="cta-optout"]');
+    const ctaOptoutCheck = document.querySelector('[data-role="cta-optout-check"]');
     amountButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
         amountButtons.forEach((b) => b.classList.remove("is-selected"));
@@ -270,18 +298,31 @@ const TT = (() => {
         }
         // PROTOTYPE — reward tier reveal, not confirmed (see config.js
         // rewardTiers). "Other" and any preset without a mapped reward
-        // just hides the line rather than showing something empty.
-        if (rewardText) {
-          const reward = btn.dataset.reward || "";
-          rewardText.textContent = reward;
-          rewardText.hidden = !reward;
-        }
+        // hides the badge and opt-out row rather than showing them empty.
+        const reward = btn.dataset.reward || "";
         if (ctaBadge) {
-          const reward = btn.dataset.reward || "";
           ctaBadge.textContent = reward ? `+ ${reward}` : "";
           ctaBadge.hidden = !reward;
         }
+        if (ctaOptout) {
+          ctaOptout.hidden = !reward;
+        }
       });
+    });
+
+    // PROTOTYPE (2026-09-21) — reward opt-out checkbox, UI ONLY: see
+    // the comment in donatePanel() in this file. Unchecking it here
+    // does not (yet) change what Stripe or fulfilment receives.
+    if (ctaOptoutCheck && ctaBadge) {
+      ctaOptoutCheck.addEventListener("change", () => {
+        ctaBadge.classList.toggle("tt-cta__badge--optedout", !ctaOptoutCheck.checked);
+      });
+    }
+
+    // PROTOTYPE (2026-09-21) — (?) tooltip per reward: click/tap toggles
+    // it too (not just hover), so it works on touch devices.
+    document.querySelectorAll(".reward-info").forEach((el) => {
+      el.addEventListener("click", () => el.classList.toggle("is-open"));
     });
 
     const copyBtn = document.querySelector('[data-role="copy-link"]');
