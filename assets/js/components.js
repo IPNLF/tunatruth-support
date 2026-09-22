@@ -59,9 +59,16 @@ const TT = (() => {
   // the CTA points at before anyone clicks anything.
   const DEFAULT_PRESET_INDEX = 1;
 
+  // ACCESSIBILITY (2026-09-22, from review) — these are single-select
+  // toggle buttons (exactly one "pressed" at a time), so each carries
+  // aria-pressed, kept in sync with .is-selected by initInteractions().
+  // A full role="radiogroup"/role="radio" pattern would be the other
+  // valid option here but needs its own arrow-key navigation to be
+  // spec-compliant — aria-pressed was the lower-risk fix for existing
+  // <button> markup and is explicitly an acceptable pattern for this.
   function amountPicker() {
     const buttons = cfg.presetAmounts.map((preset, i) => `
-      <button type="button" class="tt-amount ${i === DEFAULT_PRESET_INDEX ? "is-selected" : ""}" data-amount="${preset.amount}" data-url="${preset.url}" data-reward="${(cfg.rewardTiers && cfg.rewardTiers[i]) || ""}">
+      <button type="button" class="tt-amount ${i === DEFAULT_PRESET_INDEX ? "is-selected" : ""}" aria-pressed="${i === DEFAULT_PRESET_INDEX}" data-amount="${preset.amount}" data-url="${preset.url}" data-reward="${(cfg.rewardTiers && cfg.rewardTiers[i]) || ""}">
         ${cfg.currencySymbol}${preset.amount}
       </button>`).join("");
     // PROTOTYPE (2026-09-22) — "Other" is a flexible Stripe link: the
@@ -71,14 +78,17 @@ const TT = (() => {
     // gift via "Other" got no reward at all, unlike the same amount via
     // a preset), it gets a generic, amount-agnostic hint instead. The
     // lowest threshold is read from presetAmounts so this stays correct
-    // if the amounts ever change.
+    // if the amounts ever change. Shortened 2026-09-22 (review: too long
+    // a line to sit directly under the CTA) — kept the "$50+" since
+    // that's the actual fix for the $1000-via-Other equity gap, just
+    // trimmed the wrapping words around it.
     const lowestThreshold = cfg.presetAmounts[0] ? cfg.presetAmounts[0].amount : null;
     const otherReward = (cfg.rewardTiers && cfg.rewardTiers.length && lowestThreshold)
-      ? `a thank-you reward, if your gift qualifies (${cfg.currencySymbol}${lowestThreshold}+)`
+      ? `a reward, if you qualify (${cfg.currencySymbol}${lowestThreshold}+)`
       : "";
     return `<div class="tt-amounts" role="group" aria-label="Choose a donation amount">
       ${buttons}
-      <button type="button" class="tt-amount tt-amount--other" data-amount="other" data-url="${cfg.stripePaymentLinkUrl}" data-reward="${otherReward}">Other</button>
+      <button type="button" class="tt-amount tt-amount--other" aria-pressed="false" data-amount="other" data-url="${cfg.stripePaymentLinkUrl}" data-reward="${otherReward}">Other</button>
     </div>`;
   }
 
@@ -140,7 +150,19 @@ const TT = (() => {
   }
 
   function heroDonate() {
+    // ACCESSIBILITY/MOBILE (2026-09-22, from review) — below the
+    // breakpoint where the grid stacks to one column, the photo (used
+    // as the section's background) ends up almost entirely hidden
+    // behind the opaque donate panel, losing its storytelling value —
+    // a real, fair finding, not just an a11y nitpick. The actual fix
+    // is a differently-cropped photo for mobile, which is a content
+    // decision, not something CSS alone can properly solve — this is
+    // a mitigation: show the same photo as its own visible <img>
+    // banner above the panel on narrow viewports (hidden on wider
+    // ones, where it still works fine as a background), instead of
+    // mostly hiding it. See components.css .tt-hero__photo-mobile.
     return `<section class="tt-hero">
+      <img class="tt-hero__photo-mobile" src="assets/img/hero-photo.jpg" alt="A still from The Tuna Truth" loading="lazy">
       <div class="tt-container tt-hero__grid">
         <div class="tt-hero__identity">
           <p class="tt-hero__eyebrow">A documentary supported by IPNLF</p>
@@ -190,17 +212,24 @@ const TT = (() => {
       // A $1000 gift via the flexible "Other" link should still count
       // for the $500 tier — see amountPicker()'s otherReward comment
       // for why we can't show a specific tier on that button itself.
+      //
+      // ACCESSIBILITY (2026-09-22, from review) — real <button>, not a
+      // span with role="button" (incomplete keyboard behaviour — see
+      // initInteractions()); aria-describedby points at the tip's own
+      // id so screen readers announce it on focus even before it's
+      // visibly "open". Touch target sized to 24x24 (was 16x16).
+      const tipId = `reward-tip-${i}`;
       return `
       <li>
         <span class="reward-amount">${cfg.currencySymbol}${preset.amount}+</span> — ${reward(i)}
-        <span class="reward-info" tabindex="0" role="button" aria-label="More detail about the ${reward(i)} reward" data-tooltip="${detail(i) || "Detail to be added"}">?</span>
+        <button type="button" class="reward-info" aria-label="More detail about the ${reward(i)} reward" aria-expanded="false" aria-describedby="${tipId}">?<span class="reward-info__tip" id="${tipId}" role="tooltip">${detail(i) || "Detail to be added"}</span></button>
       </li>`;
     }).join("");
 
     const whyColumn = `<div class="tt-merged__why">
         <h2>Why your support matters</h2>
         <!-- HOLDING COPY — provisional until production confirms specific use of funds -->
-        <p>The film is entering the next stage of its journey. Further support will help it reach wider audiences through screenings, distribution and engagement.</p>
+        <p>Your donation helps bring ${cfg.filmName} to more audiences through screenings, distribution and outreach, inspiring more responsible tuna choices.</p>
         <a href="#credibility">About the film →</a>
       </div>`;
 
@@ -301,8 +330,12 @@ const TT = (() => {
     const ctaOptoutCheck = document.querySelector('[data-role="cta-optout-check"]');
     amountButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
-        amountButtons.forEach((b) => b.classList.remove("is-selected"));
+        amountButtons.forEach((b) => {
+          b.classList.remove("is-selected");
+          b.setAttribute("aria-pressed", "false");
+        });
         btn.classList.add("is-selected");
+        btn.setAttribute("aria-pressed", "true");
         // Each preset (and "Other") carries its own Payment Link, so
         // selecting an amount actually changes what Stripe charges,
         // rather than always landing on one link's default amount.
@@ -332,11 +365,82 @@ const TT = (() => {
       });
     }
 
-    // PROTOTYPE (2026-09-21) — (?) tooltip per reward: click/tap toggles
-    // it too (not just hover), so it works on touch devices.
-    document.querySelectorAll(".reward-info").forEach((el) => {
-      el.addEventListener("click", () => el.classList.toggle("is-open"));
+    // ACCESSIBILITY (2026-09-22, from review) — rebuilt from a <span
+    // role="button"> to a real <button>, which gets Enter/Space and
+    // focus handling from the browser for free (the old span version
+    // relied only on a click listener, which a real <button> gets via
+    // synthesized clicks on Enter/Space but a role="button" span does
+    // NOT reliably get across browsers — an incomplete-keyboard bug).
+    // Tooltip content is a real child element (position: fixed),
+    // measured and clamped to the viewport on open — closed state has
+    // no layout box at all (display:none), so it can never contribute
+    // to page overflow, and open state can never render off-screen
+    // regardless of how long the eventual real copy in
+    // config.js rewardDetails turns out to be.
+    const tipButtons = document.querySelectorAll(".reward-info");
+    function closeAllTips() {
+      tipButtons.forEach((btn) => {
+        btn.setAttribute("aria-expanded", "false");
+        const tip = btn.querySelector(".reward-info__tip");
+        if (tip) tip.style.display = "none";
+      });
+    }
+    // Bug found while testing the fix above: focusing a button (which
+    // a click also does, natively) can itself trigger a browser
+    // focus-into-view scroll — which immediately fired the "close on
+    // scroll" listener below and closed the tooltip the instant it
+    // opened. scrollCloseArmed guards against that: scroll-to-close
+    // only arms ~200ms after opening, past where that reflex scroll
+    // would have already happened.
+    let scrollCloseArmed = false;
+    let scrollCloseTimer = null;
+    function openTip(btn) {
+      const tip = btn.querySelector(".reward-info__tip");
+      if (!tip) return;
+      closeAllTips();
+      tip.style.display = "block";
+      const margin = 8;
+      const btnRect = btn.getBoundingClientRect();
+      const tipRect = tip.getBoundingClientRect();
+      let left = btnRect.left + btnRect.width / 2 - tipRect.width / 2;
+      left = Math.max(margin, Math.min(left, window.innerWidth - tipRect.width - margin));
+      const top = Math.max(margin, btnRect.top - tipRect.height - 6);
+      tip.style.left = `${left}px`;
+      tip.style.top = `${top}px`;
+      btn.setAttribute("aria-expanded", "true");
+      scrollCloseArmed = false;
+      clearTimeout(scrollCloseTimer);
+      scrollCloseTimer = setTimeout(() => { scrollCloseArmed = true; }, 200);
+    }
+    // Second bug found while testing: hover, focus and click all fire
+    // from a single real interaction (moving the mouse there fires
+    // mouseenter, then clicking fires focus AND click) — with an
+    // open/closed TOGGLE on click, whichever handler ran first would
+    // open it and the next one would immediately read it as "already
+    // open" and close it again. Simplified to a one-directional model
+    // instead of chasing each new race: every trigger (hover, focus,
+    // click) just ENSURES it's open — nothing closes what it opened by
+    // toggling. Closing only happens via Escape, losing focus/hover, or
+    // clicking outside. This is a standard, simpler disclosure-tooltip
+    // pattern and isn't prone to the same race by construction.
+    tipButtons.forEach((btn) => {
+      btn.addEventListener("mouseenter", () => openTip(btn));
+      btn.addEventListener("mouseleave", closeAllTips);
+      btn.addEventListener("focus", () => openTip(btn));
+      btn.addEventListener("blur", closeAllTips);
+      btn.addEventListener("click", () => openTip(btn));
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") { closeAllTips(); btn.blur(); }
+      });
     });
+    // Click outside any reward-info button closes whatever's open —
+    // expected behaviour now that click can no longer close its own.
+    document.addEventListener("click", (e) => {
+      if (![...tipButtons].some((btn) => btn.contains(e.target))) closeAllTips();
+    });
+    // Close on scroll rather than reposition — this is a transient
+    // hover/click affordance, not content someone scrolls while reading.
+    window.addEventListener("scroll", () => { if (scrollCloseArmed) closeAllTips(); }, true);
 
     const copyBtn = document.querySelector('[data-role="copy-link"]');
     if (copyBtn) {

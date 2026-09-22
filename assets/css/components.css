@@ -16,6 +16,13 @@ body {
   font-size: var(--fs-body);
   line-height: var(--lh-body);
   -webkit-font-smoothing: antialiased;
+  /* ACCESSIBILITY (2026-09-22, from review) — defence in depth against
+     horizontal page overflow at narrow widths (320px). The specific
+     cause found (the reward tooltip) is fixed at its source too — see
+     .reward-info__tip — but nothing on this page is meant to need
+     horizontal scrolling, so this is a deliberate backstop against
+     any future element doing the same thing unnoticed. */
+  overflow-x: hidden;
 }
 
 img { max-width: 100%; display: block; }
@@ -95,10 +102,34 @@ a { color: var(--text-link); }
   gap: var(--space-6);
   grid-template-columns: 1fr;
 }
+/* MOBILE (2026-09-22, from review) — hidden by default (desktop/tablet
+   use the photo as the section background instead, where the panel
+   doesn't cover most of it). Kept deliberately short rather than a
+   taller, more generous crop: this page has a hard-won budget for
+   keeping the Donate button above the fold on small phones (see the
+   review's own point 5 opener, "a meaningful success"). First pass at
+   110px actually broke that budget — re-tested at 320x568/375x667
+   after adding it and found the button (320px) and trust line (375px)
+   both pushed just past the fold. Trimmed here and again in the
+   480px block below until re-tested clean at all three of the
+   review's own viewports (320x568, 375x667, 390x844). */
+.tt-hero__photo-mobile { display: none; }
+@media (max-width: 859px) {
+  .tt-hero { background-image: none; padding-top: 0; }
+  .tt-hero__photo-mobile {
+    display: block;
+    width: 100%;
+    height: 90px;
+    margin-bottom: var(--space-2);
+    object-fit: cover;
+    object-position: center 35%;
+  }
+}
 /* Tighten the above-the-fold block on small phones so the CTA (and
    ideally the trust line under it) clears the viewport without
    scrolling, even once browser chrome eats into real usable height. */
 @media (max-width: 480px) {
+  .tt-hero__photo-mobile { height: 70px; margin-bottom: var(--space-1); }
   .tt-hero { padding: var(--space-3) 0 var(--space-4); }
   .tt-hero__grid { gap: var(--space-3); }
   .tt-hero__eyebrow { margin-bottom: var(--space-1); font-size: 0.7rem; }
@@ -113,7 +144,6 @@ a { color: var(--text-link); }
      on common phones with both new elements present. */
   .tt-progress { margin-bottom: var(--space-2); }
   .tt-progress__stats { margin-bottom: var(--space-1); }
-  .tt-donate-panel__reward { padding: var(--space-1) var(--space-2); margin-bottom: var(--space-2); }
 }
 @media (min-width: 860px) {
   .tt-hero__grid { grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: var(--space-8); }
@@ -319,38 +349,45 @@ a { color: var(--text-link); }
 .reward-amount { color: var(--tunatruth-teal); font-weight: 700; }
 
 /* ---- PROTOTYPE (2026-09-21) — (?) tooltip per reward ----
-   Placeholder content only (config.js rewardDetails is empty) —
-   fill that in per tier rather than styling around it here. Opens
-   on hover/focus for mouse/keyboard, and on click/tap (is-open,
-   toggled in components.js) for touch devices, which don't hover. */
+   Placeholder content only (config.js rewardDetails is empty) — fill
+   that in per tier rather than styling around it here.
+   ACCESSIBILITY (2026-09-22, from review): rebuilt as a real <button>
+   with a real child element for the tip (see initInteractions() in
+   components.js) instead of a role="button" span with a ::after
+   tooltip. Two review findings this fixes: (1) touch target was
+   16x16px, now 24x24; (2) the old ::after tooltip was a fixed-width
+   absolutely-positioned box that could push the page into horizontal
+   overflow once real (longer) copy replaced the placeholder text —
+   the tip below is display:none by default (zero layout box, zero
+   overflow risk) and position:fixed, measured and clamped to the
+   viewport by JS only while open. */
 .reward-info {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   margin-left: 2px;
+  padding: 0;
   border-radius: 50%;
   border: 1px solid var(--border-subtle);
+  background: none;
   color: var(--text-muted);
-  font-size: 0.65rem;
+  font: inherit;
+  font-size: 0.7rem;
   font-weight: 700;
   cursor: help;
-  position: relative;
   flex-shrink: 0;
 }
-.reward-info:hover, .reward-info:focus-visible, .reward-info.is-open {
+.reward-info:hover, .reward-info:focus-visible, .reward-info[aria-expanded="true"] {
   border-color: var(--tunatruth-teal);
   color: var(--tunatruth-teal);
   outline: none;
 }
-.reward-info::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 6px);
-  transform: translateX(-50%) translateY(4px);
-  min-width: 160px;
+.reward-info__tip {
+  display: none;
+  position: fixed;
+  min-width: 140px;
   max-width: 220px;
   padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-sm);
@@ -359,15 +396,7 @@ a { color: var(--text-link); }
   font-size: var(--fs-caption);
   font-weight: 400;
   text-align: left;
-  white-space: normal;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.12s, transform 0.12s;
   z-index: 5;
-}
-.reward-info:hover::after, .reward-info:focus-visible::after, .reward-info.is-open::after {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
 }
 
 /* ---- share ---- */

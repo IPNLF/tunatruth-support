@@ -19,20 +19,48 @@
 <link rel="stylesheet" href="assets/css/components.css">
 </head>
 <body>
-<div id="app"></div>
+<!-- ACCESSIBILITY (2026-09-22, from review): header/main/footer are now
+     three separate mount points, not one flat #app div, so <header>
+     and <footer> (rendered by TT.header()/TT.footer()) stay TOP-LEVEL
+     siblings of <main> rather than descendants of it — nesting them
+     inside <main> would have silently stripped their implicit
+     "banner"/"contentinfo" landmark roles. -->
+<noscript>
+  <!-- ACCESSIBILITY (2026-09-22, from review): "the entire donation
+       interface depends on JavaScript rendering successfully" — this
+       covers the JS-disabled case with real, working Stripe links.
+       It does NOT cover "JS enabled but a script throws" — the only
+       full fix for that is pre-rendering the HTML (a build step),
+       which is a bigger architecture change than today's scope; see
+       README. These links are duplicated from config.js by hand —
+       if the amounts/URLs there ever change, update here too. -->
+  <div style="max-width:640px;margin:40px auto;padding:0 24px;font-family:Arial,sans-serif;color:#1E2A2E;">
+    <h1>The Tuna Truth — Support the documentary</h1>
+    <p>This page works best with JavaScript enabled, but you can still donate directly via Stripe:</p>
+    <ul>
+      <li><a href="https://donate.stripe.com/6oU3cveBnf8tekfeOb97G00">Donate $50</a></li>
+      <li><a href="https://donate.stripe.com/5kQ4gzdxj7G1ekfdK797G01">Donate $200</a></li>
+      <li><a href="https://donate.stripe.com/00wdR9dxjd0ldgb9tR97G06">Donate $500</a></li>
+      <li><a href="https://donate.stripe.com/aFa9AT0Kx2lHb836hF97G05">Choose your own amount</a></li>
+    </ul>
+  </div>
+</noscript>
+
+<div id="app-header"></div>
+<main id="app-main"></main>
+<div id="app-footer"></div>
 
 <script src="assets/js/config.js"></script>
 <script src="assets/js/components.js"></script>
 <script>
-  const sections = [
-    TT.header(),
+  document.getElementById('app-header').innerHTML = TT.header();
+  document.getElementById('app-main').innerHTML = [
     TT.heroDonate(),
     TT.whyAndRewardsSection(),
     TT.shareBlock(),
     TT.credibility(),
-    TT.footer(),
-  ];
-  document.getElementById('app').innerHTML = sections.join('');
+  ].join('');
+  document.getElementById('app-footer').innerHTML = TT.footer();
   TT.initInteractions();
 </script>
 <!-- Cloudflare Web Analytics -->
