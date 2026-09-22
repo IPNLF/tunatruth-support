@@ -64,9 +64,21 @@ const TT = (() => {
       <button type="button" class="tt-amount ${i === DEFAULT_PRESET_INDEX ? "is-selected" : ""}" data-amount="${preset.amount}" data-url="${preset.url}" data-reward="${(cfg.rewardTiers && cfg.rewardTiers[i]) || ""}">
         ${cfg.currencySymbol}${preset.amount}
       </button>`).join("");
+    // PROTOTYPE (2026-09-22) — "Other" is a flexible Stripe link: the
+    // donor types their own amount on Stripe's page, after leaving this
+    // site, so we never see the actual figure here and can't show a
+    // specific tier. Rather than showing nothing (which implied a $1000
+    // gift via "Other" got no reward at all, unlike the same amount via
+    // a preset), it gets a generic, amount-agnostic hint instead. The
+    // lowest threshold is read from presetAmounts so this stays correct
+    // if the amounts ever change.
+    const lowestThreshold = cfg.presetAmounts[0] ? cfg.presetAmounts[0].amount : null;
+    const otherReward = (cfg.rewardTiers && cfg.rewardTiers.length && lowestThreshold)
+      ? `a thank-you reward, if your gift qualifies (${cfg.currencySymbol}${lowestThreshold}+)`
+      : "";
     return `<div class="tt-amounts" role="group" aria-label="Choose a donation amount">
       ${buttons}
-      <button type="button" class="tt-amount tt-amount--other" data-amount="other" data-url="${cfg.stripePaymentLinkUrl}" data-reward="">Other</button>
+      <button type="button" class="tt-amount tt-amount--other" data-amount="other" data-url="${cfg.stripePaymentLinkUrl}" data-reward="${otherReward}">Other</button>
     </div>`;
   }
 
@@ -172,9 +184,15 @@ const TT = (() => {
       // config.js rewardDetails (currently empty placeholders) — the
       // icon still renders with nothing to show yet, so it's obvious
       // where to fill copy in rather than silently doing nothing.
+      //
+      // PROTOTYPE (2026-09-22) — "+" added after the amount: these are
+      // thresholds ("this amount or more"), not exact-match brackets.
+      // A $1000 gift via the flexible "Other" link should still count
+      // for the $500 tier — see amountPicker()'s otherReward comment
+      // for why we can't show a specific tier on that button itself.
       return `
       <li>
-        <span class="reward-amount">${cfg.currencySymbol}${preset.amount}</span> — ${reward(i)}
+        <span class="reward-amount">${cfg.currencySymbol}${preset.amount}+</span> — ${reward(i)}
         <span class="reward-info" tabindex="0" role="button" aria-label="More detail about the ${reward(i)} reward" data-tooltip="${detail(i) || "Detail to be added"}">?</span>
       </li>`;
     }).join("");
