@@ -174,6 +174,46 @@ content are confirmed together — building it against provisional names
 risks a rework if the confirmed tiers don't map cleanly onto the current
 $25/$50/$100 buttons.
 
+### Reward opt-out — deferred until the reward system is confirmed
+
+The `prototype/progress-bar-and-rewards` branch has a "Send me this
+reward" checkbox next to the Donate button, but **it's UI only right
+now** — nothing selected there reaches Stripe or fulfilment, because
+the Payment Links are static URLs with no backend in between. Decided
+2026-09-22: not building the real version yet, since the reward
+system itself isn't confirmed — but keeping these steps here so
+they're not lost when it is ready.
+
+**When ready, the plan is:**
+
+1. In the Stripe Dashboard (live mode), open each reward-carrying
+   Payment Link — **including the flexible "Other" link**, not just
+   the three fixed-amount ones, since a donor can give $1000+ via
+   "Other" and should still be asked (see "Payment flow" above for
+   why "Other" can't know the amount in advance).
+2. Edit the link → add a **custom field** (Stripe's own no-code
+   feature): something like *"Would you like to receive your
+   reward?"* as a **Dropdown** with two options (e.g. "Yes, send it
+   to me" / "No thanks"). Confirm in the dashboard whether a native
+   checkbox-type field exists by then — wasn't verified as available
+   at time of writing.
+3. Decide required vs. optional, save, confirm the Payment Link URL
+   is unchanged.
+4. Repeat for every reward-carrying link (currently $50/$200/$500 +
+   Other).
+5. Test in Stripe's test mode (or one small real transaction) before
+   trusting it — confirm the answer shows up on the payment's detail
+   page in the Dashboard, and in a CSV export of payments.
+6. Once live: remove the on-page checkbox in `donatePanel()` in
+   `components.js` — it becomes redundant, and risks looking like the
+   "real" control when Stripe's field is the one actually recorded.
+7. Fulfilment note: for "Other" donations, the specific tier ($50+ /
+   $200+ / $500+) has to be matched manually against the actual amount
+   Stripe recorded — nothing here does that automatically.
+
+No Stripe Dashboard access on this side to do steps 1–5 — that's for
+whoever manages the account (IPNLF finance team or equivalent).
+
 ## Content approval checklist
 
 Everything below reads as normal page copy (no visible brackets), but is
