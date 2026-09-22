@@ -19,15 +19,21 @@ const TT = (() => {
     </a>`;
   }
 
-  function wordmarkTunaTruth(size) {
-    return `<img class="tt-logo tt-logo--tunatruth tt-logo--${size}" src="assets/img/tunatruth-logo.png" alt="The Tuna Truth, with Serena Appleby">`;
+  // `linked` wraps the mark in a link to tunatruth.com — on by default
+  // for the header lockup (2026-09-22); the hero's large wordmark and
+  // the footer's small one stay unlinked, matching how they were
+  // before, since only the header link was requested.
+  function wordmarkTunaTruth(size, linked = false) {
+    const img = `<img class="tt-logo tt-logo--tunatruth tt-logo--${size}" src="assets/img/tunatruth-logo.png" alt="The Tuna Truth, with Serena Appleby">`;
+    if (!linked) return img;
+    return `<a href="https://www.tunatruth.com/" target="_blank" rel="noopener" aria-label="The Tuna Truth (opens tunatruth.com)">${img}</a>`;
   }
 
   function brandLockup() {
     // Returns the header lock-up in whichever order is configured as primary.
-    const primary = isIpnlfPrimary ? wordmarkIpnlf("sm") : wordmarkTunaTruth("sm");
+    const primary = isIpnlfPrimary ? wordmarkIpnlf("sm") : wordmarkTunaTruth("sm", true);
     const secondaryLabel = isIpnlfPrimary ? "supports" : "presented by";
-    const secondary = isIpnlfPrimary ? wordmarkTunaTruth("xs") : wordmarkIpnlf("xs");
+    const secondary = isIpnlfPrimary ? wordmarkTunaTruth("xs", true) : wordmarkIpnlf("xs");
     return `<div class="tt-lockup">
       ${primary}
       <span class="tt-lockup__joiner">${secondaryLabel}</span>
@@ -36,8 +42,9 @@ const TT = (() => {
   }
 
   function header() {
-    // The IPNLF mark in the lockup is itself the link to ipnlf.org now
-    // (see wordmarkIpnlf()) — no need for a separate text link too.
+    // Both marks in the lockup are themselves links (to ipnlf.org and
+    // tunatruth.com respectively — see wordmarkIpnlf()/wordmarkTunaTruth())
+    // — no need for separate text links too.
     return `<header class="tt-header">
       <div class="tt-container tt-header__inner">
         ${brandLockup()}
