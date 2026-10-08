@@ -19,10 +19,10 @@ const TT = (() => {
     </a>`;
   }
 
-  function wordmarkTunaTruth(size) {
-    return `<a class="tt-logo-link" href="https://www.tunatruth.com/" target="_blank" rel="noopener" aria-label="The Tuna Truth, with Serena Appleby (opens tunatruth.com)">
-      <img class="tt-logo tt-logo--tunatruth tt-logo--${size}" src="assets/img/tunatruth-logo.png" alt="The Tuna Truth, with Serena Appleby">
-    </a>`;
+  function wordmarkTunaTruth(size, linked = true) {
+    const img = `<img class="tt-logo tt-logo--tunatruth tt-logo--${size}" src="assets/img/tunatruth-logo.png" alt="The Tuna Truth, with Serena Appleby">`;
+    if (!linked) return img;
+    return `<a class="tt-logo-link" href="https://www.tunatruth.com/" target="_blank" rel="noopener" aria-label="The Tuna Truth, with Serena Appleby (opens tunatruth.com)">${img}</a>`;
   }
 
   function brandLockup() {
@@ -85,7 +85,7 @@ const TT = (() => {
       <div class="tt-container tt-hero__grid">
         <div class="tt-hero__identity">
           <p class="tt-hero__eyebrow">A documentary supported by IPNLF</p>
-          <h1 class="tt-hero__title">${wordmarkTunaTruth("lg")}</h1>
+          <h1 class="tt-hero__title">${wordmarkTunaTruth("lg", false)}</h1>
           <!-- HOLDING COPY — requires IPNLF/production approval before launch -->
           <p class="tt-hero__support-line">
             Support the next stage of ${cfg.filmName} and help the film reach audiences around the world.
@@ -154,7 +154,7 @@ const TT = (() => {
           Jackson Wild
         </p>
         <p>The Tuna Truth has been shortlisted as a finalist for a Jackson Wild Media Award. The awards are nature filmmaking's equivalent of the Oscars® and highlight the most impactful, innovative, and inspiring storytelling in the space.</p>
-        <p>The film has been nominated in the Onscreen Personality category alongside Sir David Attenborough, Benedict Cumberbatch and Will Smith.</p>
+        <p>The film has been nominated in the Onscreen Personality category alongside productions featuring Sir David Attenborough, Benedict Cumberbatch and Will Smith.</p>
 
         <div class="tt-credibility__links">
           <a href="https://www.tunatruth.com/" target="_blank" rel="noopener">Find out more →</a>
