@@ -41,10 +41,10 @@
   --border-on-dark: rgba(247,247,240,0.22);   /* Cream, translucent */
 
   /* ---- Brand actions ----
-     Coral is the one warm accent, so the donate CTA is still the single
-     most vivid thing on screen. Deep-blue label on Coral is 3.6:1, which
-     passes WCAG for large text — hence the CTA font is 1.25rem bold. */
-  --cta-bg:          var(--tt-coral);
+     The donate CTA is a Cream pill with a Deep-blue label (11.4:1), so
+     the Coral in the logo is not competed with; Coral is kept for the
+     arrow, hover borders and focus ring. */
+  --cta-bg:          var(--tt-cream);
   --cta-text:        var(--tt-deep-blue);
 
   /* ---- Type ---- */
@@ -89,7 +89,7 @@
   /* ---- Shadows ---- */
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.12);
   --shadow-md: 0 10px 30px rgba(0,0,0,0.22);
-  --shadow-cta: 0 8px 24px rgba(217,108,74,0.35);   /* Coral glow */
+  --shadow-cta: 0 8px 24px rgba(0,0,0,0.28);   /* soft dark shadow */
 
   /* ---- Layout ---- */
   --container-max: 1120px;

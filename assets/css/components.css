@@ -29,6 +29,7 @@ a { color: var(--text-link); }
 
 /* ---- real logo images (replace earlier fabricated CSS wordmarks) ---- */
 .tt-logo { display: block; width: auto; }
+.tt-logo-link { display: inline-block; line-height: 0; }
 .tt-logo--ipnlf.tt-logo--xs { height: 18px; }
 .tt-logo--ipnlf.tt-logo--sm { height: 26px; }
 .tt-logo--tunatruth.tt-logo--xs { height: 22px; }
@@ -164,12 +165,13 @@ a { color: var(--text-link); }
   transition: background 0.15s, border-color 0.15s;
 }
 .tt-amount:hover { border-color: var(--tt-coral); }
-/* Selected = Cream chip, Deep-blue label (11:1) — Coral fill would only
-   give 3.6:1 at this small size, so Coral stays reserved for the CTA. */
+/* Selected = outlined chip (Cream border and label), so it does not read
+   as a second button next to the Cream CTA. */
 .tt-amount.is-selected {
-  background: var(--tt-cream);
+  background: transparent;
   border-color: var(--tt-cream);
-  color: var(--tt-deep-blue);
+  box-shadow: inset 0 0 0 1px var(--tt-cream);
+  color: var(--tt-cream);
 }
 .tt-cta {
   display: block;
@@ -183,9 +185,10 @@ a { color: var(--text-link); }
   font-size: 1.25rem;
   text-decoration: none;
   box-shadow: var(--shadow-cta);
-  transition: filter 0.15s, transform 0.1s;
+  transition: background 0.15s, transform 0.1s;
 }
-.tt-cta:hover { filter: brightness(1.07); }
+.tt-cta__arrow { color: var(--tt-coral); margin-left: 0.4em; }
+.tt-cta:hover { background: var(--tt-light-grey); }
 .tt-cta:active { transform: translateY(1px); }
 .tt-donate-panel__trust {
   display: flex;

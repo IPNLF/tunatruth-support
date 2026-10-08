@@ -20,7 +20,9 @@ const TT = (() => {
   }
 
   function wordmarkTunaTruth(size) {
-    return `<img class="tt-logo tt-logo--tunatruth tt-logo--${size}" src="assets/img/tunatruth-logo.png" alt="The Tuna Truth, with Serena Appleby">`;
+    return `<a class="tt-logo-link" href="https://www.tunatruth.com/" target="_blank" rel="noopener" aria-label="The Tuna Truth, with Serena Appleby (opens tunatruth.com)">
+      <img class="tt-logo tt-logo--tunatruth tt-logo--${size}" src="assets/img/tunatruth-logo.png" alt="The Tuna Truth, with Serena Appleby">
+    </a>`;
   }
 
   function brandLockup() {
@@ -69,7 +71,7 @@ const TT = (() => {
       <p class="tt-donate-panel__eyebrow">Support the documentary</p>
       ${amountPicker()}
       <a class="tt-cta" href="${defaultUrl}" data-role="donate-cta">
-        Donate now
+        Donate now<span class="tt-cta__arrow" aria-hidden="true">→</span>
       </a>
       <p class="tt-donate-panel__trust">
         <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24"><path fill="currentColor" d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Zm-1 14.59-4.3-4.3 1.42-1.41L11 12.76l5.88-5.88 1.41 1.41L11 15.59Z"/></svg>
