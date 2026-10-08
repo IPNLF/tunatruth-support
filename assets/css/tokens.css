@@ -1,62 +1,51 @@
 /* ============================================================
    TUNATRUTH SUPPORT — DESIGN TOKENS
-   Brand core colours are carried over from the IPNLF design
-   system (deep ocean teal-navy + warm orange/gold accent) so the
-   page reads as genuinely IPNLF, but this page uses its own
-   cinematic near-black surface + a single warm "support" accent
-   for the donation interface, so it feels like a campaign page
-   rather than a re-skin of the informational micro-sites.
+   Colours follow the tunatruth.com palette (supplied 2026-10-08):
+   Cream, Light grey, Mid grey, Dark grey, Deep blue, Coral. Deep blue
+   takes the place of the old near-black; Cream takes the place of
+   white. Coral is the single warm accent (donate CTA, selected amount,
+   focus ring). Everything below is built from those six values.
    ============================================================ */
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap");
 
 :root {
-  /* ---- IPNLF brand core (unchanged from other IPNLF sites) ---- */
-  --ipnlf-deep:    #0C465B;
-  --ipnlf-teal:    #27AD9C;
-  --ipnlf-ocean:   #5CA1B9;
-  --ipnlf-orange:  #E88C33;
-  --ipnlf-gold:    #F6AE2D;
-  --ipnlf-teal-deep:  #146E64;
+  /* ---- tunatruth.com palette ---- */
+  --tt-cream:      #F7F7F0;
+  --tt-light-grey: #BAC7CB;
+  --tt-mid-grey:   #7C98A6;
+  --tt-dark-grey:  #3F6880;
+  --tt-deep-blue:  #01385B;
+  --tt-coral:      #D96C4A;
 
-  /* ---- Cinematic surface (TunaTruth-specific, campaign feel) ---- */
-  --cinema-black:   #0A1416;
-  --cinema-panel:   #102226;
-  --cinema-line:    rgba(255,255,255,0.12);
-
-  /* ---- Neutrals ---- */
-  --ipnlf-ink:     #0E0705;
-  --ipnlf-slate:   #4A5A60;
-  --ipnlf-mist:    #C2D0D0;
-  --ipnlf-foam:    #EEF4F4;
-  --ipnlf-white:   #FFFFFF;
+  /* Derived, not new: the pale band behind the share section is
+     Light grey at 40% over Cream — a full-strength Light grey band
+     would be too heavy for the "calm, editorial" lower sections. */
+  --tt-pale-grey:  #DFE4E1;
 
   /* ---- Semantic text ---- */
-  --text-strong:       var(--ipnlf-ink);
-  --text-body:         #1E2A2E;
-  --text-muted:        var(--ipnlf-slate);
-  --text-on-dark:      var(--ipnlf-white);
-  --text-on-dark-soft: #B9CBCE;
-  --text-link:         var(--ipnlf-teal-deep);
+  --text-strong:       var(--tt-deep-blue);
+  --text-body:         var(--tt-deep-blue);
+  --text-muted:        var(--tt-dark-grey);   /* 5.5:1 on Cream */
+  --text-on-dark:      var(--tt-cream);
+  --text-on-dark-soft: var(--tt-light-grey);
+  --text-link:         var(--tt-deep-blue);
 
   /* ---- Semantic surfaces ---- */
-  --surface-page:  var(--ipnlf-white);
-  --surface-soft:  var(--ipnlf-foam);
-  --surface-dark:  var(--cinema-black);
-  --surface-panel: var(--cinema-panel);
+  --surface-page:  var(--tt-cream);
+  --surface-soft:  var(--tt-pale-grey);
+  --surface-dark:  var(--tt-deep-blue);
+  --surface-panel: var(--tt-deep-blue);
 
   /* ---- Borders ---- */
-  --border-subtle:  var(--ipnlf-mist);
-  --border-on-dark: var(--cinema-line);
+  --border-subtle:  var(--tt-light-grey);
+  --border-on-dark: rgba(247,247,240,0.22);   /* Cream, translucent */
 
   /* ---- Brand actions ----
-     The donate CTA deliberately uses the warm gold/orange pair, not the
-     teal used for informational links elsewhere, so it reads as the one
-     actionable thing on the screen rather than blending with nav/body links. */
-  --brand-primary:   var(--ipnlf-deep);
-  --brand-secondary: var(--ipnlf-teal);
-  --cta-bg:          var(--ipnlf-gold);
-  --cta-bg-hover:    #ffbf49;
-  --cta-text:        #241300;
+     Coral is the one warm accent, so the donate CTA is still the single
+     most vivid thing on screen. Deep-blue label on Coral is 3.6:1, which
+     passes WCAG for large text — hence the CTA font is 1.25rem bold. */
+  --cta-bg:          var(--tt-coral);
+  --cta-text:        var(--tt-deep-blue);
 
   /* ---- Type ---- */
   --font-display: "Bebas Neue", "Anton", "Oswald", sans-serif;
@@ -100,7 +89,7 @@
   /* ---- Shadows ---- */
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.12);
   --shadow-md: 0 10px 30px rgba(0,0,0,0.22);
-  --shadow-cta: 0 8px 24px rgba(246,174,45,0.35);
+  --shadow-cta: 0 8px 24px rgba(217,108,74,0.35);   /* Coral glow */
 
   /* ---- Layout ---- */
   --container-max: 1120px;

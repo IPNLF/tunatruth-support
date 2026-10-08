@@ -41,7 +41,7 @@ a { color: var(--text-link); }
 .tt-logo-chip {
   display: inline-flex;
   align-items: center;
-  background: var(--ipnlf-white);
+  background: var(--tt-cream);
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
 }
@@ -84,7 +84,7 @@ a { color: var(--text-link); }
      documentary still, so the logo and support line stay legible
      regardless of how bright the sky is behind them. */
   background-image:
-    linear-gradient(120deg, rgba(6,14,16,0.90) 0%, rgba(6,14,16,0.78) 35%, rgba(6,14,16,0.45) 65%, rgba(6,14,16,0.25) 100%),
+    linear-gradient(120deg, rgba(1,56,91,0.90) 0%, rgba(1,56,91,0.78) 35%, rgba(1,56,91,0.45) 65%, rgba(1,56,91,0.25) 100%),
     url("../img/hero-photo.jpg");
   background-size: cover;
   background-position: center 30%;
@@ -141,7 +141,7 @@ a { color: var(--text-link); }
 }
 .tt-donate-panel__eyebrow {
   margin: 0 0 var(--space-3);
-  color: var(--ipnlf-white);
+  color: var(--text-on-dark);
   font-weight: 700;
   font-size: var(--fs-body);
 }
@@ -159,15 +159,17 @@ a { color: var(--text-link); }
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-on-dark);
   background: transparent;
-  color: var(--ipnlf-white);
+  color: var(--text-on-dark);
   cursor: pointer;
   transition: background 0.15s, border-color 0.15s;
 }
-.tt-amount:hover { border-color: var(--ipnlf-gold); }
+.tt-amount:hover { border-color: var(--tt-coral); }
+/* Selected = Cream chip, Deep-blue label (11:1) — Coral fill would only
+   give 3.6:1 at this small size, so Coral stays reserved for the CTA. */
 .tt-amount.is-selected {
-  background: var(--ipnlf-gold);
-  border-color: var(--ipnlf-gold);
-  color: var(--cta-text);
+  background: var(--tt-cream);
+  border-color: var(--tt-cream);
+  color: var(--tt-deep-blue);
 }
 .tt-cta {
   display: block;
@@ -178,12 +180,12 @@ a { color: var(--text-link); }
   background: var(--cta-bg);
   color: var(--cta-text);
   font-weight: 800;
-  font-size: var(--fs-body-lg);
+  font-size: 1.25rem;
   text-decoration: none;
   box-shadow: var(--shadow-cta);
-  transition: background 0.15s, transform 0.1s;
+  transition: filter 0.15s, transform 0.1s;
 }
-.tt-cta:hover { background: var(--cta-bg-hover); }
+.tt-cta:hover { filter: brightness(1.07); }
 .tt-cta:active { transform: translateY(1px); }
 .tt-donate-panel__trust {
   display: flex;
@@ -194,7 +196,7 @@ a { color: var(--text-link); }
   font-size: var(--fs-caption);
   color: var(--text-on-dark-soft);
 }
-.tt-donate-panel__trust svg { color: var(--ipnlf-teal); flex-shrink: 0; }
+.tt-donate-panel__trust svg { color: var(--tt-light-grey); flex-shrink: 0; }
 
 /* ---- generic sections ---- */
 /* 2.625rem is ~12.5% tighter than the space-7 (3rem) this used to be —
@@ -250,16 +252,16 @@ a { color: var(--text-link); }
 .tt-btn-secondary {
   padding: var(--space-3) var(--space-5);
   border-radius: var(--radius-pill);
-  border: 1px solid var(--ipnlf-deep);
+  border: 1px solid var(--tt-deep-blue);
   background: transparent;
-  color: var(--ipnlf-deep);
+  color: var(--tt-deep-blue);
   font-weight: 600;
   font-size: var(--fs-body-sm);
   cursor: pointer;
   text-decoration: none;
 }
-.tt-btn-secondary:hover { background: var(--ipnlf-deep); color: var(--ipnlf-white); }
-.tt-share__copied { margin: var(--space-3) 0 0; color: var(--ipnlf-teal-deep); font-size: var(--fs-body-sm); }
+.tt-btn-secondary:hover { background: var(--tt-deep-blue); color: var(--tt-cream); }
+.tt-share__copied { margin: var(--space-3) 0 0; color: var(--tt-dark-grey); font-size: var(--fs-body-sm); }
 
 /* ---- credibility ----
    Deliberately one quiet register throughout: one body-copy style,
@@ -301,12 +303,12 @@ a { color: var(--text-link); }
 .tt-footer__x { color: var(--text-on-dark-soft); }
 .tt-footer__links { display: flex; gap: var(--space-4); flex-wrap: wrap; justify-content: center; }
 .tt-footer__links a { color: var(--text-on-dark-soft); font-size: var(--fs-body-sm); text-decoration: none; }
-.tt-footer__links a:hover { color: var(--ipnlf-white); }
+.tt-footer__links a:hover { color: var(--tt-cream); }
 .tt-footer__copy { margin: 0; color: var(--text-on-dark-soft); font-size: var(--fs-caption); }
 
 /* ---- focus visibility (accessibility) ---- */
 a:focus-visible, button:focus-visible {
-  outline: 3px solid var(--ipnlf-gold);
+  outline: 3px solid var(--tt-coral);
   outline-offset: 2px;
 }
 
@@ -322,17 +324,19 @@ a:focus-visible, button:focus-visible {
 .tt-confirm__panel {
   max-width: 480px;
   text-align: center;
-  background: var(--surface-panel);
+  /* Panel and page are both Deep blue now, so the card is a faint
+     Cream tint plus the hairline border rather than a second shade. */
+  background: rgba(247,247,240,0.06);
   border: 1px solid var(--border-on-dark);
   border-radius: var(--radius-lg);
   padding: var(--space-7) var(--space-5);
 }
-.tt-confirm__icon { color: var(--ipnlf-teal); margin-bottom: var(--space-4); }
+.tt-confirm__icon { color: var(--tt-light-grey); margin-bottom: var(--space-4); }
 .tt-confirm__title {
   margin: 0 0 var(--space-3);
   font-family: var(--font-display);
   font-size: var(--fs-display-md);
-  color: var(--ipnlf-white);
+  color: var(--text-on-dark);
   letter-spacing: var(--ls-display);
 }
 .tt-confirm__body { color: var(--text-on-dark-soft); margin: 0 0 var(--space-5); }

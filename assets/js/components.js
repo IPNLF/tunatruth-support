@@ -135,7 +135,7 @@ const TT = (() => {
         <p>${cfg.filmName} is a Sunline Films production, commissioned and executive produced by IPNLF, presented by chef Serena Appleby and produced and directed by Sara Pipernos, with support from Human Rights at Sea, Blue Marine Foundation and Sustainable Communities and Fisheries Trust.</p>
 
         <!-- HOLDING COPY — requires production/IPNLF approval before launch -->
-        <p>Filmed in the Azores, Portugal, ${cfg.filmName} shines a light on troubling aspects of the seafood industry and invites viewers on a journey towards more sustainable, responsible choices.</p>
+        <p>Filmed in Bristol, Cornwall, and the Azores (Portugal), ${cfg.filmName} shines a light on troubling aspects of the seafood industry and invites viewers on a journey towards more sustainable, responsible choices.</p>
 
         <!-- HOLDING COPY — requires IPNLF approval before launch -->
         <p>IPNLF supports the film as part of its work to promote thriving coastal communities and environmentally and socially responsible tuna fisheries.</p>
